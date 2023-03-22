@@ -25,7 +25,7 @@
                             <div class="caption font-red-sunglo"> <i class="icon-settings font-red-sunglo"></i> <span class="caption-subject bold uppercase">User upload form</span> </div>
                         </div>
                         <div class="portlet-body form">
-                            <form method="POST" action="" accept-charset="UTF-8" class="form" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('bulk.user.store')}}" accept-charset="UTF-8" class="form" enctype="multipart/form-data">
                                 @csrf
                                 <div class="tab-content">
                                     <div class="tab-pane fade active in" id="Details"> <div class="form-body">
