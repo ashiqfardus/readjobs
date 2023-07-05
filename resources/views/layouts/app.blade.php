@@ -19,6 +19,7 @@ if (!isset($seo)) {
     <meta charset="utf-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -86,6 +87,10 @@ if (!isset($seo)) {
     {!! $siteSetting->ganalytics !!}
 
     {!! $siteSetting->google_tag_manager_for_head !!}
+    
+<!-- Start of readjobs6197 Zendesk Widget script -->
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=3613e91a-801e-4a2d-bf6d-8ce2c4f00bce"> </script>
+<!-- End of readjobs6197 Zendesk Widget script -->
 
 </head>
 
@@ -94,6 +99,7 @@ if (!isset($seo)) {
 <body>
 
     @yield('content')
+    @include('accept-cookies::template')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.0.0/turbolinks.min.js" data-turbolinks-eval="false" data-turbo-eval="false"></script>
     <!-- Bootstrap's JavaScript -->
 
@@ -132,6 +138,7 @@ if (!isset($seo)) {
     {!! NoCaptcha::renderJs() !!}
 
     @stack('scripts')
+    @stack('js')
 
     <!-- Custom js -->
 

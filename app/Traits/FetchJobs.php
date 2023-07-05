@@ -56,9 +56,15 @@ trait FetchJobs
         $asc_desc = 'DESC';
         $query = Job::select($this->fields);
         $query = $this->createQuery($query, $search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured);
-
+//        return $query->toSql();
         //$query->orderBy('jobs.is_featured', 'DESC');
-        $query->orderBy('jobs.id', 'DESC');
+        if ($search !=''){
+            $query->orderBy('jobs.id', 'DESC');
+        }
+        else{
+            $query->orderBy('jobs.id', 'ASC');
+        }
+
         //echo $query->toSql();exit;
         return $query->paginate($limit);
     }
@@ -99,7 +105,8 @@ trait FetchJobs
         }   
         $query->where('jobs.is_active', 1);
         if ($search != '') {
-            $query = $query->whereRaw("MATCH (`search`) AGAINST ('$search*' IN BOOLEAN MODE)");
+//            $query = $query->whereRaw("MATCH (`search`) AGAINST ('$search*' IN BOOLEAN MODE)");
+            $query = $query->where('search','LIKE',"%{$search}%");
         }
         if (isset($job_titles[0])) {
             $query = $query->where('title', 'like', $job_titles[0]);

@@ -159,7 +159,6 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         App\Providers\CustomConfigServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------
@@ -216,6 +215,10 @@ return [
         'MiscHelper' => App\Helpers\MiscHelper::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+    ],
+    'twilio' => [
+        'TWILIO_SID'  => env('TWILIO_SID'),
+        'TWILIO_TOKEN' => env('TWILIO_TOKEN'),
+        'TWILIO_FROM'     => env('TWILIO_FROM')
     ],
 ];

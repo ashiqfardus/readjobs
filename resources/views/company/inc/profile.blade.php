@@ -2,17 +2,20 @@
 {!! Form::model($company, array('method' => 'put', 'route' => array('update.company.profile'), 'class' => 'form', 'files'=>true)) !!}
 <h5>{{__('Acount Information')}}</h5>
 <div class="row">
-<div class="col-md-4">
+<div class="col-md-6">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'email') !!}">
-			<label>{{__('Email')}}</label>
+			<label>{{__('Email')}} <span style="color: red;">*</span></label>
 			{!! Form::text('email', null, array('class'=>'form-control', 'id'=>'email', 'placeholder'=>__('Company Email'))) !!}
             {!! APFrmErrHelp::showErrors($errors, 'email') !!} </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'password') !!}">
 			<label>{{__('Password')}}</label>
 			{!! Form::password('password', array('class'=>'form-control', 'id'=>'password', 'placeholder'=>__('Password'))) !!}
             {!! APFrmErrHelp::showErrors($errors, 'password') !!} </div>
+            @if(count($errors)==0)
+                <div style="font-size: 11px;">At-least one upper case, one lower case, one numeric and special character.</div>
+            @endif
     </div>
 </div>
 <hr>
@@ -37,77 +40,98 @@
 <div class="row">
     <div class="col-md-6">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'name') !!}">
-			<label>{{__('Company Name')}}</label>
+			<label>{{__('Company Name')}} <span style="color: red;">*</span></label>
 			{!! Form::text('name', null, array('class'=>'form-control', 'id'=>'name', 'placeholder'=>__('Company Name'))) !!}
             {!! APFrmErrHelp::showErrors($errors, 'name') !!} </div>
     </div>
     
-    <div class="col-md-6">
-        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'ceo') !!}">
-			<label>{{__('CEO Name')}}</label>
-			{!! Form::text('ceo', null, array('class'=>'form-control', 'id'=>'ceo', 'placeholder'=>__('Company CEO'))) !!}
-            {!! APFrmErrHelp::showErrors($errors, 'ceo') !!} </div>
-    </div>
+{{--    <div class="col-md-6">--}}
+{{--        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'ceo') !!}">--}}
+{{--			<label>{{__('CEO Name')}}</label>--}}
+{{--			{!! Form::text('ceo', null, array('class'=>'form-control', 'id'=>'ceo', 'placeholder'=>__('Company CEO'))) !!}--}}
+{{--            {!! APFrmErrHelp::showErrors($errors, 'ceo') !!} </div>--}}
+{{--    </div>--}}
     <div class="col-md-6">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'industry_id') !!}">
-			<label>{{__('Industry')}}</label>
+			<label>{{__('Industry')}} <span style="color: red;">*</span></label>
 			{!! Form::select('industry_id', ['' => __('Select Industry')]+$industries, null, array('class'=>'form-control', 'id'=>'industry_id')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'industry_id') !!} </div>
     </div>
     <div class="col-md-6">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'ownership_type') !!}">
-			<label>{{__('Ownership')}}</label>
+			<label>{{__('Ownership')}} <span style="color: red;">*</span></label>
 			{!! Form::select('ownership_type_id', ['' => __('Select Ownership type')]+$ownershipTypes, null, array('class'=>'form-control', 'id'=>'ownership_type_id')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'ownership_type_id') !!} </div>
     </div>
     <div class="col-md-12">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'description') !!}">
-			<label>{{__('Description')}}</label>
+			<label>{{__('About Company & Job Description')}} <span style="color: red;">*</span></label>
 			{!! Form::textarea('description', null, array('class'=>'form-control', 'id'=>'description', 'placeholder'=>__('Company details'))) !!}
             {!! APFrmErrHelp::showErrors($errors, 'description') !!} </div>
     </div>
     <div class="col-md-12">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'location') !!}">
-			<label>{{__('Address')}}</label>
+			<label>{{__('Address')}} <span style="color: red;">*</span></label>
 			{!! Form::text('location', null, array('class'=>'form-control', 'id'=>'location', 'placeholder'=>__('Location'))) !!}
             {!! APFrmErrHelp::showErrors($errors, 'location') !!} </div>
     </div>
     <div class="col-md-4">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'no_of_offices') !!}">
-			<label>{{__('No of Office')}}</label>
+			<label>{{__('No of Office')}} <span style="color: red;">*</span></label>
 			{!! Form::select('no_of_offices', ['' => __('Select num. of offices')]+MiscHelper::getNumOffices(), null, array('class'=>'form-control', 'id'=>'no_of_offices')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'no_of_offices') !!} </div>
     </div>
 	<div class="col-md-4">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'no_of_employees') !!}">
-			<label>{{__('No of Employees')}}</label>
+			<label>{{__('No of Employees')}} <span style="color: red;">*</span></label>
 			{!! Form::select('no_of_employees', ['' => __('Select num. of employees')]+MiscHelper::getNumEmployees(), null, array('class'=>'form-control', 'id'=>'no_of_employees')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'no_of_employees') !!} </div>
     </div>
 	<div class="col-md-4">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'established_in') !!}">
-			<label>{{__('Established In')}}</label>
+			<label>{{__('Established In')}} <span style="color: red;">*</span></label>
 			{!! Form::select('established_in', ['' => __('Select Established In')]+MiscHelper::getEstablishedIn(), null, array('class'=>'form-control', 'id'=>'established_in')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'established_in') !!} </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'website') !!}">
 			<label>{{__('Website URL')}}</label>
 			{!! Form::text('website', null, array('class'=>'form-control', 'id'=>'website', 'placeholder'=>__('Website'))) !!}
             {!! APFrmErrHelp::showErrors($errors, 'website') !!} </div>
     </div>
-    
-    
-    <div class="col-md-4">
-        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'fax') !!}">
-			<label>{{__('Fax')}}</label>
-			{!! Form::text('fax', null, array('class'=>'form-control', 'id'=>'fax', 'placeholder'=>__('Fax'))) !!}
-            {!! APFrmErrHelp::showErrors($errors, 'fax') !!} </div>
+    <div class="col-md-6">
+        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'country_id') !!}">
+            <label>{{__('Country')}} <span style="color: red;">*</span></label>
+            {!! Form::select('country_id', ['' => __('Select Country')]+$countries, old('country_id', (isset($company))? $company->country_id:$siteSetting->default_country_id), array('class'=>'form-control', 'id'=>'country_id')) !!}
+            {!! APFrmErrHelp::showErrors($errors, 'country_id') !!} </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
+        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'state_id') !!}">
+            <label>{{__('State')}} <span style="color: red;">*</span></label>
+            <span id="default_state_dd"> {!! Form::select('state_id', ['' => __('Select State')], null, array('class'=>'form-control', 'id'=>'state_id')) !!} </span> {!! APFrmErrHelp::showErrors($errors, 'state_id') !!} </div>
+    </div>
+    <div class="col-md-6">
+        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'city_id') !!}">
+            <label>{{__('City')}} <span style="color: red;">*</span></label>
+            <span id="default_city_dd"> {!! Form::select('city_id', ['' => __('Select City')], null, array('class'=>'form-control', 'id'=>'city_id')) !!} </span> {!! APFrmErrHelp::showErrors($errors, 'city_id') !!} </div>
+    </div>
+    
+    
+{{--    <div class="col-md-4">--}}
+{{--        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'fax') !!}">--}}
+{{--			<label>{{__('Fax')}}</label>--}}
+{{--			{!! Form::text('fax', null, array('class'=>'form-control', 'id'=>'fax', 'placeholder'=>__('Fax'))) !!}--}}
+{{--            {!! APFrmErrHelp::showErrors($errors, 'fax') !!} </div>--}}
+{{--    </div>--}}
+    <div class="col-md-6">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'phone') !!}">
 			<label>{{__('Phone')}}</label>
-			{!! Form::text('phone', null, array('class'=>'form-control', 'id'=>'phone', 'placeholder'=>__('Phone'))) !!}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="country_code"></span>
+                </div>
+                {!! Form::text('phone', null, array('class'=>'form-control', 'id'=>'phone', 'placeholder'=>__('Phone'))) !!}
+            </div>
             {!! APFrmErrHelp::showErrors($errors, 'phone') !!} </div>
     </div>
     <div class="clearfix"></div>
@@ -140,22 +164,6 @@
 			<label>{{__('Pinterest')}}</label>
 			{!! Form::text('pinterest', null, array('class'=>'form-control', 'id'=>'pinterest', 'placeholder'=>__('Pinterest'))) !!}
             {!! APFrmErrHelp::showErrors($errors, 'pinterest') !!} </div>
-    </div>
-    <div class="col-md-4">
-        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'country_id') !!}">
-			<label>{{__('Country')}}</label>
-			{!! Form::select('country_id', ['' => __('Select Country')]+$countries, old('country_id', (isset($company))? $company->country_id:$siteSetting->default_country_id), array('class'=>'form-control', 'id'=>'country_id')) !!}
-            {!! APFrmErrHelp::showErrors($errors, 'country_id') !!} </div>
-    </div>
-    <div class="col-md-4">
-        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'state_id') !!}">
-			<label>{{__('State')}}</label>
-			<span id="default_state_dd"> {!! Form::select('state_id', ['' => __('Select State')], null, array('class'=>'form-control', 'id'=>'state_id')) !!} </span> {!! APFrmErrHelp::showErrors($errors, 'state_id') !!} </div>
-    </div>
-    <div class="col-md-4">
-        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'city_id') !!}">
-			<label>{{__('City')}}</label>
-			<span id="default_city_dd"> {!! Form::select('city_id', ['' => __('Select City')], null, array('class'=>'form-control', 'id'=>'city_id')) !!} </span> {!! APFrmErrHelp::showErrors($errors, 'city_id') !!} </div>
     </div>
     <div class="col-md-12">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'map') !!}">
@@ -196,9 +204,11 @@
 @include('includes.tinyMCEFront') 
 <script type="text/javascript">
     $(document).ready(function () {
+        getCountryCode();
         $('#country_id').on('change', function (e) {
             e.preventDefault();
             filterLangStates(0);
+            getCountryCode();
         });
         $(document).on('change', '#state_id', function (e) {
             e.preventDefault();
@@ -213,6 +223,17 @@
             showThumbnail(files)
         }, false)
     });
+
+    function getCountryCode(){
+        var country_id = $('#country_id').val();
+
+        if (country_id != '') {
+            $.post("{{ route('filter.country.code') }}", {country_id: country_id, _method: 'POST', _token: '{{ csrf_token() }}'})
+                .done(function (response) {
+                    $('#country_code').text(response);
+                });
+        }
+    }
 
     function showThumbnail(files) {
         $('#thumbnail').html('');

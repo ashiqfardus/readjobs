@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
+use App\CountryDetail;
 use DB;
 use Input;
 use Form;
@@ -102,6 +104,30 @@ class AjaxController extends Controller
 
         $dd = Form::select('degree_type_id', ['' => 'Select degree type'] + $degreeTypes, $degree_type_id, array('id' => 'degree_type_id', 'class' => 'form-control'));
         echo $dd;
+    }
+
+    function filterCountryCode(Request $request){
+        $country_id = $request->input('country_id');
+        $country_sort_order = Country::where('sort_order',$country_id)->select('sort_order')->first();
+        $country_details = CountryDetail::where('id',$country_sort_order['sort_order'])->first();
+        return $country_code = $country_details['phone_code'];
+    }
+
+    function userCurrency(Request $request){
+        $option = '<option value="">Select salary currency</option>';
+
+        $country = DB::table('countries')
+            ->select('countries.id','countries_details.currency')
+            ->leftJoin('countries_details','countries.sort_order', '=','countries_details.id')
+            ->where('countries.is_default',1)
+            ->where('countries_details.currency','!=', null)
+            ->get();
+
+        foreach ($country as $c){
+            $option .= '<option value="'.$c->currency.'" '.($c->id == $request->country_id ? 'Selected':'').'>'.$c->currency.'</option>';
+        }
+
+        return $option;
     }
 
 }

@@ -4,7 +4,7 @@
 @include('includes.header') 
 <!-- Header end --> 
 <!-- Inner Page Title start --> 
-@include('includes.inner_page_title', ['page_title'=>__('My Profile')]) 
+{{--@include('includes.inner_page_title', ['page_title'=>__('My Profile')]) --}}
 <!-- Inner Page Title end -->
 <div class="listpgWraper">
     <div class="container">
@@ -21,7 +21,7 @@
                         </div>
 						
 						<div class="userccount">
-                            <div class="formpanel mt0"
+                            <div class="formpanel mt0">
                                 <!-- Personal Information -->
                                 @include('user.inc.summary')                                
                             </div>

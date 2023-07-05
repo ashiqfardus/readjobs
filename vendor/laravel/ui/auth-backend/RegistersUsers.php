@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Helpers\DataArrayHelper;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,8 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        $countries = DataArrayHelper::langCountriesArray();
+        return view('auth.register')->with('countries', $countries);
     }
 
     /**
@@ -63,6 +65,6 @@ trait RegistersUsers
      */
     protected function registered(Request $request, $user)
     {
-        //
+
     }
 }

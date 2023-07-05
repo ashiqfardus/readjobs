@@ -1,4 +1,31 @@
 <?php return array (
+  'accept-cookies' => 
+  array (
+    'sessionName' => 'accept-cookies',
+    'route' => 
+    array (
+      'middleware' => 
+      array (
+      ),
+      'prefix' => 'accept-cookies',
+      'name' => 'accept-cookies.',
+      'route' => 
+      array (
+        'name' => 'accept',
+        'url' => '/accept',
+      ),
+    ),
+    'backgroundColor' => 'bg-dark',
+    'text' => 'We use cookies and similar technologies to offer you a better experience on our platform, improve performance, analyze your interactions on our site and personalize content. To learn more, see our Privacy Policy.',
+    'linkMoreInfoUrl' => 'http://127.0.0.1/cms/terms-of-use',
+    'linkMoreInfoTarget' => '_blank',
+    'linkMoreInfoText' => 'More info.',
+    'linkMoreInfoCollor' => 'text-primary',
+    'btnAcceptText' => 'Accept',
+    'btnAcceptColor' => 'text-success',
+    'btnRefuseText' => 'Refuse',
+    'btnRefuseColor' => 'text-danger',
+  ),
   'app' => 
   array (
     'name' => 'ReadJobs',
@@ -48,7 +75,6 @@
       31 => 'Yajra\\DataTables\\DataTablesServiceProvider',
       32 => 'App\\Providers\\CustomConfigServiceProvider',
       33 => 'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider',
-      34 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     ),
     'aliases' => 
     array (
@@ -96,7 +122,12 @@
       'MiscHelper' => 'App\\Helpers\\MiscHelper',
       'NoCaptcha' => 'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha',
       'UserVerification' => 'Jrean\\UserVerification\\Facades\\UserVerification',
-      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
+    ),
+    'twilio' => 
+    array (
+      'TWILIO_SID' => 'AC07aded32b0ef5758727d5e9e3a5081f1',
+      'TWILIO_TOKEN' => 'a3585bd9d4149cc1b4cdac5ee484dfb9',
+      'TWILIO_FROM' => '+12545893469',
     ),
   ),
   'auth' => 
@@ -629,6 +660,89 @@
     'censor_request_body_fields' => 
     array (
       0 => 'password',
+    ),
+  ),
+  'geoip' => 
+  array (
+    'log_failures' => true,
+    'include_currency' => true,
+    'service' => 'ipapi',
+    'services' => 
+    array (
+      'maxmind_database' => 
+      array (
+        'class' => 'Torann\\GeoIP\\Services\\MaxMindDatabase',
+        'database_path' => 'D:\\xampp\\htdocs\\readjobs\\storage\\app/geoip.mmdb',
+        'update_url' => 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=&suffix=tar.gz',
+        'locales' => 
+        array (
+          0 => 'en',
+        ),
+      ),
+      'maxmind_api' => 
+      array (
+        'class' => 'Torann\\GeoIP\\Services\\MaxMindWebService',
+        'user_id' => NULL,
+        'license_key' => NULL,
+        'locales' => 
+        array (
+          0 => 'en',
+        ),
+      ),
+      'ipapi' => 
+      array (
+        'class' => 'Torann\\GeoIP\\Services\\IPApi',
+        'secure' => true,
+        'key' => NULL,
+        'continent_path' => 'D:\\xampp\\htdocs\\readjobs\\storage\\app/continents.json',
+        'lang' => 'en',
+      ),
+      'ipgeolocation' => 
+      array (
+        'class' => 'Torann\\GeoIP\\Services\\IPGeoLocation',
+        'secure' => true,
+        'key' => NULL,
+        'continent_path' => 'D:\\xampp\\htdocs\\readjobs\\storage\\app/continents.json',
+        'lang' => 'en',
+      ),
+      'ipdata' => 
+      array (
+        'class' => 'Torann\\GeoIP\\Services\\IPData',
+        'key' => NULL,
+        'secure' => true,
+      ),
+      'ipfinder' => 
+      array (
+        'class' => 'Torann\\GeoIP\\Services\\IPFinder',
+        'key' => NULL,
+        'secure' => true,
+        'locales' => 
+        array (
+          0 => 'en',
+        ),
+      ),
+    ),
+    'cache' => 'all',
+    'cache_tags' => 
+    array (
+      0 => 'torann-geoip-location',
+    ),
+    'cache_expires' => 30,
+    'default_location' => 
+    array (
+      'ip' => '127.0.0.0',
+      'iso_code' => 'US',
+      'country' => 'United States',
+      'city' => 'New Haven',
+      'state' => 'CT',
+      'state_name' => 'Connecticut',
+      'postal_code' => '06510',
+      'lat' => 41.31,
+      'lon' => -72.92,
+      'timezone' => 'America/New_York',
+      'continent' => 'NA',
+      'default' => true,
+      'currency' => 'USD',
     ),
   ),
   'ignition' => 

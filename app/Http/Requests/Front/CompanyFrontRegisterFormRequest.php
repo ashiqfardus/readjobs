@@ -29,6 +29,8 @@ class CompanyFrontRegisterFormRequest extends Request
         return [
             'name' => 'required|max:150',
             'email' => 'required|unique:companies,email|email|max:100',
+            'company_country' =>'required|max:50',
+            'company_phone' =>'required|max:50',
             'password' =>
                 [
                     'required',
@@ -46,6 +48,8 @@ class CompanyFrontRegisterFormRequest extends Request
         return [
             'name.required' => __('Name is required'),
             'email.required' => __('Email is required'),
+            'company_country.required' => __('Country is required'),
+            'company_phone.required' => __('Phone is required'),
             'email.email' => __('The email must be a valid email address'),
             'email.unique' => __('This Email has already been taken'),
             'password.required' => __('Password is required'),

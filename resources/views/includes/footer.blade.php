@@ -1,10 +1,10 @@
 <!--Footer-->
-<div class="largebanner shadow3">
-<div class="adin">
-{!! $siteSetting->above_footer_ad !!}
-</div>
-<div class="clearfix"></div>
-</div>
+{{--<div class="largebanner shadow3">--}}
+{{--<div class="adin">--}}
+{{--{!! $siteSetting->above_footer_ad !!}--}}
+{{--</div>--}}
+{{--<div class="clearfix"></div>--}}
+{{--</div>--}}
 
 
 

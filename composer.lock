@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e8fcafd12dbfde7a7bd141b82c3c4e4",
+    "content-hash": "ce8b8bb87093a68a9b92f036ae7a0aa4",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -6863,6 +6863,118 @@
             "time": "2020-07-13T06:12:54+00:00"
         },
         {
+            "name": "tjgazel/laravel-accept-cookies",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tjgazel/laravel-accept-cookies.git",
+                "reference": "fc9a71f41ab3a22457e59dfd546cb818c8b8a1a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tjgazel/laravel-accept-cookies/zipball/fc9a71f41ab3a22457e59dfd546cb818c8b8a1a3",
+                "reference": "fc9a71f41ab3a22457e59dfd546cb818c8b8a1a3",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.5"
+            },
+            "require-dev": {
+                "illuminate/contracts": "^5.5",
+                "illuminate/http": "^5.5",
+                "illuminate/routing": "^5.5",
+                "illuminate/session": "^5.5.0",
+                "illuminate/support": "^5.5"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TJGazel\\Laravel\\AcceptCookies\\AcceptCookiesProvider"
+                    ],
+                    "aliases": {
+                        "AcceptCookies": "TJGazel\\Laravel\\AcceptCookies\\Facades\\AcceptCookies"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TJGazel\\Laravel\\AcceptCookies\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Talles Gazel",
+                    "email": "tjgazel@gmail.com"
+                }
+            ],
+            "description": "Pop-up cookie acceptance terms for Laravel 5.5+",
+            "homepage": "https://github.com/tjgazel/laravel-accept-cookies",
+            "keywords": [
+                "cookies",
+                "laravel",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/tjgazel/laravel-accept-cookies/issues",
+                "source": "https://github.com/tjgazel/laravel-accept-cookies/tree/v1.0.1"
+            },
+            "time": "2021-02-05T12:46:34+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "7.3.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:twilio/twilio-php.git",
+                "reference": "db64f7b5555b1bb4b5ea1511917cadf064342c0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/db64f7b5555b1bb4b5ea1511917cadf064342c0e",
+                "reference": "db64f7b5555b1bb4b5ea1511917cadf064342c0e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3 || ^7.0",
+                "phpunit/phpunit": ">=7.0 < 10"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "https://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "time": "2023-04-20T07:20:58+00:00"
+        },
+        {
             "name": "tzsk/payu",
             "version": "5.2.0",
             "source": {
@@ -7919,6 +8031,61 @@
                 }
             ],
             "time": "2021-10-03T12:00:00+00:00"
+        },
+        {
+            "name": "fzaninotto/faker",
+            "version": "v1.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker.git",
+                "reference": "848d8125239d7dbf8ab25cb7f054f1a630e68c2e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/848d8125239d7dbf8ab25cb7f054f1a630e68c2e",
+                "reference": "848d8125239d7dbf8ab25cb7f054f1a630e68c2e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0"
+            },
+            "require-dev": {
+                "ext-intl": "*",
+                "phpunit/phpunit": "^4.8.35 || ^5.7",
+                "squizlabs/php_codesniffer": "^2.9.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/fzaninotto/Faker/issues",
+                "source": "https://github.com/fzaninotto/Faker/tree/v1.9.2"
+            },
+            "abandoned": true,
+            "time": "2020-12-11T09:56:16+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -9973,5 +10140,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

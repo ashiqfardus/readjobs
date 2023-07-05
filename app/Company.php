@@ -6,6 +6,7 @@ namespace App;
 
 
 
+use App\Mail\LoginOTPMail;
 use Auth;
 
 use App;
@@ -27,7 +28,10 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\CompanyResetPassword;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Twilio\Rest\Client;
 
 
 class Company extends Authenticatable
@@ -399,6 +403,49 @@ class Company extends Authenticatable
             } else {
                 return $package;
             }
+        }
+    }
+
+    //send verification OTP
+    public function getOtp(){
+        $opt_var = 'company_otp_'.Auth::guard('company')->user()->id;
+        return Cache::get("'.$opt_var.'");
+    }
+
+    public function generateOtp(){
+        $otp = rand(99999, 111111);
+        $opt_var = 'company_otp_'.Auth::guard('company')->user()->id;
+        Cache::put(["'.$opt_var.'"=>$otp], now()->addMinutes(20));
+        return $otp;
+    }
+
+    public function sendOtp(){
+        $otp = $this->generateOtp();
+        $country_code = DB::table('countries')
+            ->select('countries_details.phone_code')
+            ->leftJoin('countries_details','countries.sort_order', '=','countries_details.id')
+            ->where('countries.id',Auth::guard('company')->user()->country_id)
+            ->get();
+//        dd($country_code);
+        $receiver = $country_code[0]->phone_code.Auth::guard('company')->user()->phone;
+        $message = 'Your OTP is '.$otp;
+
+        Mail::to(Auth::guard('company')->user()->email)->send(new LoginOTPMail($otp));
+
+        try {
+            $accountSid = config('app.twilio')['TWILIO_SID'];
+            $authToken = config('app.twilio')['TWILIO_TOKEN'];
+            $twilioNumber = config('app.twilio')['TWILIO_FROM'];
+
+            $client = new Client($accountSid, $authToken);
+
+            $client->messages->create($receiver, [
+                'from' => $twilioNumber,
+                'body' =>$message
+            ]);
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
         }
     }
 

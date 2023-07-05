@@ -148,6 +148,17 @@
       'Newsletter' => 'Spatie\\Newsletter\\NewsletterFacade',
     ),
   ),
+  'tjgazel/laravel-accept-cookies' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'TJGazel\\Laravel\\AcceptCookies\\AcceptCookiesProvider',
+    ),
+    'aliases' => 
+    array (
+      'AcceptCookies' => 'TJGazel\\Laravel\\AcceptCookies\\Facades\\AcceptCookies',
+    ),
+  ),
   'tzsk/payu' => 
   array (
     'providers' => 

@@ -20,7 +20,7 @@
 
                         <div class="main-plan">
 
-                            <div class="plan-price1-1">$</div>
+                            <div class="plan-price1-2">{{$symbol}}</div>
 
                             <div class="plan-price1-2">{{$package->package_price}}</div>
 
@@ -49,7 +49,7 @@
 		<div class="invitereval">
 		<h3>Please Choose Your Payment Method to Pay</h3>	
 			
-		<div class="totalpay">{{__('Total Amount to pay')}}: <strong>{{$package->package_price}}</strong></div>
+		<div class="totalpay">{{__('Total Amount to pay')}}: <strong>{{$package->package_price}} {{$symbol}}</strong></div>
 			
 		<ul class="btn2s">
 		@if((bool)$siteSetting->is_paypal_active)

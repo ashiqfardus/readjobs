@@ -33,7 +33,12 @@ class UserFrontFormRequest extends Request
             //'middle_name' => 'max:80',
             //'last_name' => 'required|max:80',
             'email' => 'required|unique:users,email' . $id_str . '|email|max:100',
-            'password' => 'max:50',
+            'password' =>
+                [
+                    'nullable',
+                    'min:6',
+                    'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/'
+                ],
             //'father_name' => 'required|max:80',
             'date_of_birth' => 'required',
             //'gender_id' => 'required',
@@ -66,8 +71,8 @@ class UserFrontFormRequest extends Request
             'email.required' => __('Email is required'),
             'email.email' => __('The email must be a valid email address'),
             'email.unique' => __('This Email has already been taken'),
-            'password.required' => __('Password is required'),
-            'password.min' => __('The password should be more than 3 characters long'),
+            'password.min' => __('The Password must be at least 6 characters in length.'),
+            'password.regex' => __('The Password must contain atleast one upper case, one lower case, one numeric and special character.'),
             //'father_name.required' => __('Father Name is required'),
             'date_of_birth.required' => __('Date of birth is required'),
             //'gender_id.required' => __('Please select gender'),

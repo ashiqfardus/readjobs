@@ -4,7 +4,7 @@
 @include('includes.header')
 <!-- Header end -->
 <!-- Inner Page Title start -->
-@include('includes.inner_page_title', ['page_title'=>__('Blog')])
+{{--@include('includes.inner_page_title', ['page_title'=>__('Blog')])--}}
 <!-- Inner Page Title end -->
 
 <header id="blog-headerwrap" class="text-center">

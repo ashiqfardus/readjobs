@@ -4,7 +4,7 @@
 @include('includes.header')
 <!-- Header end --> 
 <!-- Inner Page Title start -->
-@include('includes.inner_page_title', ['page_title'=>$cmsContent->page_title])
+{{--@include('includes.inner_page_title', ['page_title'=>$cmsContent->page_title])--}}
 <!-- Inner Page Title end -->
 <div class="about-wraper">
     <div class="container">

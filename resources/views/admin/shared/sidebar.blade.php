@@ -80,7 +80,8 @@
         @include('admin/shared/side_bars/job_shift') 
         @include('admin/shared/side_bars/degree_level') 
         @include('admin/shared/side_bars/degree_type') 
-        @include('admin/shared/side_bars/major_subject')  
+        @include('admin/shared/side_bars/certification_type')
+        @include('admin/shared/side_bars/major_subject')
         @include('admin/shared/side_bars/result_type')
         @include('admin/shared/side_bars/marital_status')
         @include('admin/shared/side_bars/ownership_type') 
@@ -88,14 +89,15 @@
 		
         <li class="heading">
             <h3 class="uppercase">Manage</h3>
-        </li>
-
-        @include('admin/shared/side_bars/site_setting')
-        @endif
-        <li class="heading">
+        </li>		 
+        @include('admin/shared/side_bars/site_setting')   
+		@endif
+		
+		<li class="heading">
             <h3 class="uppercase">Bulk Uploads</h3>
         </li>
         @include('admin/shared/side_bars/bulk_uploads')
+		
 		
 		
     </ul>

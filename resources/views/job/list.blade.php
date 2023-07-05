@@ -317,6 +317,10 @@
 @push('scripts') 
 
 <script>
+$('.form_submit').on('change', function (e){
+    $('#search_submit').click();
+})
+
 $('.btn-job-alert').on('click', function() {
     @if(Auth::user())
     $('#show_alert').modal('show');
@@ -462,8 +466,9 @@ $('.btn-job-alert').on('click', function() {
 
  $(document).on('click','.swal-button--Login',function(){
         window.location.href = "{{route('login')}}";
-     })
-     $(document).on('click','.swal-button--register',function(){
+     });
+
+ $(document).on('click','.swal-button--register',function(){
         window.location.href = "{{route('register')}}";
      })
 

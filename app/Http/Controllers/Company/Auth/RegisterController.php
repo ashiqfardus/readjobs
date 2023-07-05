@@ -67,8 +67,10 @@ use RegistersUsers;
         $company = new Company();
         $company->name = $request->input('name');
         $company->email = $request->input('email');
+        $company->country_id = $request->input('company_country');
+        $company->phone = $request->input('company_phone');
         $company->password = bcrypt($request->input('password'));
-        $company->is_active = 0;
+        $company->is_active = 1;
         $company->verified = 0;
         $company->save();
         /*         * ******************** */
@@ -79,9 +81,14 @@ use RegistersUsers;
         event(new Registered($company));
         event(new CompanyRegistered($company));
         $this->guard()->login($company);
-        UserVerification::generate($company);
-        UserVerification::send($company, 'Company Verification', config('mail.recieve_to.address'), config('mail.recieve_to.name'));
+//        UserVerification::generate($company);
+//        UserVerification::send($company, 'Company Verification', config('mail.recieve_to.address'), config('mail.recieve_to.name'));
         return $this->registered($request, $company) ?: redirect($this->redirectPath());
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        Auth::guard('company')->user()->sendOtp();
     }
 
 }

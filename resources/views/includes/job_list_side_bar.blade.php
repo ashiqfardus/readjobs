@@ -29,7 +29,7 @@
                     @php
                     $checked = (in_array($jobTitle, Request::get('job_title', array())))? 'checked="checked"':'';
                     @endphp
-                    <input type="checkbox" name="job_title[]" id="job_title_{{$key}}" value="{{$jobTitle}}" {{$checked}} >
+                    <input type="checkbox" class="form_submit" name="job_title[]" id="job_title_{{$key}}" value="{{$jobTitle}}" {{$checked}} >
                     <label for="job_title_{{$key}}"></label>
                     {{$jobTitle}} <span>{{App\Job::countNumJobs('title', $jobTitle)}}</span> </li>
 
@@ -53,7 +53,7 @@
                 $checked = (in_array($country->country_id, Request::get('country_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="country_id[]" id="country_{{$country->country_id}}" value="{{$country->country_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="country_id[]" id="country_{{$country->country_id}}" value="{{$country->country_id}}" {{$checked}}>
                     <label for="country_{{$country->country_id}}"></label>
                     {{$country->country}} <span>{{App\Job::countNumJobs('country_id', $country->country_id)}}</span> </li>
                 @endif
@@ -78,7 +78,7 @@
                 $checked = (in_array($state->state_id, Request::get('state_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="state_id[]" id="state_{{$state->state_id}}" value="{{$state->state_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="state_id[]" id="state_{{$state->state_id}}" value="{{$state->state_id}}" {{$checked}}>
                     <label for="state_{{$state->state_id}}"></label>
                     {{$state->state}} <span>{{App\Job::countNumJobs('state_id', $state->state_id)}}</span> </li>
                 @endif
@@ -103,7 +103,7 @@
                 $checked = (in_array($city->city_id, Request::get('city_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="city_id[]" id="city_{{$city->city_id}}" value="{{$city->city_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="city_id[]" id="city_{{$city->city_id}}" value="{{$city->city_id}}" {{$checked}}>
                     <label for="city_{{$city->city_id}}"></label>
                     {{$city->city}} <span>{{App\Job::countNumJobs('city_id', $city->city_id)}}</span> </li>
                 @endif
@@ -127,7 +127,7 @@
                 $checked = (in_array($jobExperience->job_experience_id, Request::get('job_experience_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="job_experience_id[]" id="job_experience_{{$jobExperience->job_experience_id}}" value="{{$jobExperience->job_experience_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="job_experience_id[]" id="job_experience_{{$jobExperience->job_experience_id}}" value="{{$jobExperience->job_experience_id}}" {{$checked}}>
                     <label for="job_experience_{{$jobExperience->job_experience_id}}"></label>
                     {{$jobExperience->job_experience}} <span>{{App\Job::countNumJobs('job_experience_id', $jobExperience->job_experience_id)}}</span> </li>
                 @endif
@@ -151,7 +151,7 @@
                 $checked = (in_array($jobType->job_type_id, Request::get('job_type_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="job_type_id[]" id="job_type_{{$jobType->job_type_id}}" value="{{$jobType->job_type_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="job_type_id[]" id="job_type_{{$jobType->job_type_id}}" value="{{$jobType->job_type_id}}" {{$checked}}>
                     <label for="job_type_{{$jobType->job_type_id}}"></label>
                     {{$jobType->job_type}} <span>{{App\Job::countNumJobs('job_type_id', $jobType->job_type_id)}}</span> </li>
                 @endif
@@ -175,7 +175,7 @@
                 $checked = (in_array($jobShift->job_shift_id, Request::get('job_shift_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="job_shift_id[]" id="job_shift_{{$jobShift->job_shift_id}}" value="{{$jobShift->job_shift_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="job_shift_id[]" id="job_shift_{{$jobShift->job_shift_id}}" value="{{$jobShift->job_shift_id}}" {{$checked}}>
                     <label for="job_shift_{{$jobShift->job_shift_id}}"></label>
                     {{$jobShift->job_shift}} <span>{{App\Job::countNumJobs('job_shift_id', $jobShift->job_shift_id)}}</span> </li>
                 @endif
@@ -199,7 +199,7 @@
                 $checked = (in_array($careerLevel->career_level_id, Request::get('career_level_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="career_level_id[]" id="career_level_{{$careerLevel->career_level_id}}" value="{{$careerLevel->career_level_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="career_level_id[]" id="career_level_{{$careerLevel->career_level_id}}" value="{{$careerLevel->career_level_id}}" {{$checked}}>
                     <label for="career_level_{{$careerLevel->career_level_id}}"></label>
                     {{$careerLevel->career_level}} <span>{{App\Job::countNumJobs('career_level_id', $careerLevel->career_level_id)}}</span> </li>
                 @endif
@@ -224,7 +224,7 @@
                 $checked = (in_array($degreeLevel->degree_level_id, Request::get('degree_level_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="degree_level_id[]" id="degree_level_{{$degreeLevel->degree_level_id}}" value="{{$degreeLevel->degree_level_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="degree_level_id[]" id="degree_level_{{$degreeLevel->degree_level_id}}" value="{{$degreeLevel->degree_level_id}}" {{$checked}}>
                     <label for="degree_level_{{$degreeLevel->degree_level_id}}"></label>
                     {{$degreeLevel->degree_level}} <span>{{App\Job::countNumJobs('degree_level_id', $degreeLevel->degree_level_id)}}</span> </li>
                 @endif
@@ -249,7 +249,7 @@
                 $checked = (in_array($gender->gender_id, Request::get('gender_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="gender_id[]" id="gender_{{$gender->gender_id}}" value="{{$gender->gender_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="gender_id[]" id="gender_{{$gender->gender_id}}" value="{{$gender->gender_id}}" {{$checked}}>
                     <label for="gender_{{$gender->gender_id}}"></label>
                     {{$gender->gender}} <span>{{App\Job::countNumJobs('gender_id', $gender->gender_id)}}</span> </li>
                 @endif
@@ -275,7 +275,7 @@
                 $checked = (in_array($industry->id, Request::get('industry_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="industry_id[]" id="industry_{{$industry->id}}" value="{{$industry->id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="industry_id[]" id="industry_{{$industry->id}}" value="{{$industry->id}}" {{$checked}}>
                     <label for="industry_{{$industry->id}}"></label>
                     {{$industry->industry}} <span>{{App\Job::countNumJobs('industry_id', $industry->id)}}</span> </li>
                 @endif
@@ -300,7 +300,7 @@
                 $checked = (in_array($jobSkill->job_skill_id, Request::get('job_skill_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="job_skill_id[]" id="job_skill_{{$jobSkill->job_skill_id}}" value="{{$jobSkill->job_skill_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="job_skill_id[]" id="job_skill_{{$jobSkill->job_skill_id}}" value="{{$jobSkill->job_skill_id}}" {{$checked}}>
                     <label for="job_skill_{{$jobSkill->job_skill_id}}"></label>
                     {{$jobSkill->job_skill}} <span>{{App\Job::countNumJobs('job_skill_id', $jobSkill->job_skill_id)}}</span> </li>
                 @endif
@@ -324,7 +324,7 @@
                 $checked = (in_array($functionalArea->functional_area_id, Request::get('functional_area_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="functional_area_id[]" id="functional_area_id_{{$functionalArea->functional_area_id}}" value="{{$functionalArea->functional_area_id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="functional_area_id[]" id="functional_area_id_{{$functionalArea->functional_area_id}}" value="{{$functionalArea->functional_area_id}}" {{$checked}}>
                     <label for="functional_area_id_{{$functionalArea->functional_area_id}}"></label>
                     {{$functionalArea->functional_area}} <span>{{App\Job::countNumJobs('functional_area_id', $functionalArea->functional_area_id)}}</span>
                 </li>                
@@ -351,7 +351,7 @@
                 $checked = (in_array($company->id, Request::get('company_id', array())))? 'checked="checked"':'';
                 @endphp
                 <li>
-                    <input type="checkbox" name="company_id[]" id="company_{{$company->id}}" value="{{$company->id}}" {{$checked}}>
+                    <input type="checkbox" class="form_submit" name="company_id[]" id="company_{{$company->id}}" value="{{$company->id}}" {{$checked}}>
                     <label for="company_{{$company->id}}"></label>
                     {{$company->name}} <span>{{App\Job::countNumJobs('company_id', $company->id)}}</span> 
                 </li>
@@ -378,7 +378,7 @@
 
             <!-- button -->
             <div class="searchnt">
-                <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i> {{__('Search Jobs')}}</button>
+                <button type="submit" id="search_submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i> {{__('Search Jobs')}}</button>
             </div>
             <!-- button end--> 
         </div>

@@ -7,7 +7,7 @@
                 <div class="fileinput fileinput-new" data-provides="fileinput">
                     <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;"> <img src="{{ asset('/') }}admin_assets/no-image.png" alt="" /> </div>
                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
-                    <div> <span class="btn default btn-file"> <span class="fileinput-new"> Select Company logo </span> <span class="fileinput-exists"> Change </span> {!! Form::file('logo', null, array('id'=>'logo')) !!} </span> <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a> </div>
+                    <div> <span class="btn default btn-file"> <span class="fileinput-new"> Select Company logo <span style="color: red;">*</span> </span> <span class="fileinput-exists"> Change </span> {!! Form::file('logo', null, array('id'=>'logo')) !!} </span> <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a> </div>
                 </div>
                 {!! APFrmErrHelp::showErrors($errors, 'logo') !!} </div>
         </div>
@@ -17,51 +17,74 @@
         </div>    
         @endif  
     </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'name') !!}"> {!! Form::label('name', 'Company Name', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'name') !!}"> {!! htmlspecialchars_decode(Form::label('name', 'Company Name <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::text('name', null, array('class'=>'form-control', 'id'=>'name', 'placeholder'=>'Company Name')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'name') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'email') !!}"> {!! Form::label('email', 'Company Email', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'email') !!}"> {!! htmlspecialchars_decode(Form::label('email', 'Company Email <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::text('email', null, array('class'=>'form-control', 'id'=>'email', 'placeholder'=>'Company Email')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'email') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'password') !!}"> {!! Form::label('password', 'Password', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'password') !!}"> {!! htmlspecialchars_decode(Form::label('password', 'Password <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::password('password', array('class'=>'form-control', 'id'=>'password', 'placeholder'=>'Password')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'password') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'ceo') !!}"> {!! Form::label('ceo', 'Company CEO', ['class' => 'bold']) !!}
-        {!! Form::text('ceo', null, array('class'=>'form-control', 'id'=>'ceo', 'placeholder'=>'Company CEO')) !!}
-        {!! APFrmErrHelp::showErrors($errors, 'ceo') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'industry_id') !!}"> {!! Form::label('industry_id', 'Industry', ['class' => 'bold']) !!}                    
+{{--    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'ceo') !!}"> {!! Form::label('ceo', 'Company CEO', ['class' => 'bold']) !!}--}}
+{{--        {!! Form::text('ceo', null, array('class'=>'form-control', 'id'=>'ceo', 'placeholder'=>'Company CEO')) !!}--}}
+{{--        {!! APFrmErrHelp::showErrors($errors, 'ceo') !!} </div>--}}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'industry_id') !!}"> {!! htmlspecialchars_decode(Form::label('industry_id', 'Industry <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::select('industry_id', ['' => 'Select Industry']+$industries, null, array('class'=>'form-control', 'id'=>'industry_id')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'industry_id') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'ownership_type') !!}"> {!! Form::label('ownership_type', 'Ownership Type', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'ownership_type_id') !!}"> {!! htmlspecialchars_decode(Form::label('ownership_type', 'Ownership Type <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::select('ownership_type_id', ['' => 'Select Ownership type']+$ownershipTypes, null, array('class'=>'form-control', 'id'=>'ownership_type_id')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'ownership_type_id') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'description') !!}"> {!! Form::label('description', 'Company details', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'description') !!}"> {!! htmlspecialchars_decode(Form::label('description', 'Company details <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::textarea('description', null, array('class'=>'form-control', 'id'=>'description', 'placeholder'=>'Company details')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'description') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'location') !!}"> {!! Form::label('location', 'Location', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'location') !!}"> {!! htmlspecialchars_decode(Form::label('location', 'Location <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::text('location', null, array('class'=>'form-control', 'id'=>'location', 'placeholder'=>'Location')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'location') !!} </div>     
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'map') !!}"> {!! Form::label('map', 'Google Map', ['class' => 'bold']) !!}
         {!! Form::textarea('map', null, array('class'=>'form-control', 'id'=>'map', 'placeholder'=>'Google Map')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'map') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'no_of_offices') !!}"> {!! Form::label('no_of_offices', 'Number of offices', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'no_of_offices') !!}"> {!! htmlspecialchars_decode(Form::label('no_of_offices', 'Number of offices <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::select('no_of_offices', ['' => 'Select num. of offices']+MiscHelper::getNumOffices(), null, array('class'=>'form-control', 'id'=>'no_of_offices')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'no_of_offices') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'website') !!}"> {!! Form::label('website', 'Website', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'website') !!}"> {!! htmlspecialchars_decode(Form::label('website', 'Website <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::text('website', null, array('class'=>'form-control', 'id'=>'website', 'placeholder'=>'Website')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'website') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'no_of_employees') !!}"> {!! Form::label('no_of_employees', 'Number of employees', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'no_of_employees') !!}"> {!! htmlspecialchars_decode(Form::label('no_of_employees', 'Number of employees <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::select('no_of_employees', ['' => 'Select num. of employees']+MiscHelper::getNumEmployees(), null, array('class'=>'form-control', 'id'=>'no_of_employees')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'no_of_employees') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'established_in') !!}"> {!! Form::label('established_in', 'Established in', ['class' => 'bold']) !!}
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'established_in') !!}"> {!! htmlspecialchars_decode(Form::label('established_in', 'Established in <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::select('established_in', ['' => 'Select Established In']+MiscHelper::getEstablishedIn(), null, array('class'=>'form-control', 'id'=>'established_in')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'established_in') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'fax') !!}"> {!! Form::label('fax', 'Fax #', ['class' => 'bold']) !!}
-        {!! Form::text('fax', null, array('class'=>'form-control', 'id'=>'fax', 'placeholder'=>'Fax #')) !!}
-        {!! APFrmErrHelp::showErrors($errors, 'fax') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'phone') !!}"> {!! Form::label('phone', 'Phone #', ['class' => 'bold']) !!}
-        {!! Form::text('phone', null, array('class'=>'form-control', 'id'=>'phone', 'placeholder'=>'Phone #')) !!}
-        {!! APFrmErrHelp::showErrors($errors, 'phone') !!} </div>
+{{--    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'fax') !!}"> {!! Form::label('fax', 'Fax #', ['class' => 'bold']) !!}--}}
+{{--        {!! Form::text('fax', null, array('class'=>'form-control', 'id'=>'fax', 'placeholder'=>'Fax #')) !!}--}}
+{{--        {!! APFrmErrHelp::showErrors($errors, 'fax') !!} </div>--}}
+{{--    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'phone') !!}">--}}
+{{--        {!! htmlspecialchars_decode(Form::label('phone', 'Phone # <span style="color:red;">*</span>', ['class' => 'bold'])) !!}--}}
+{{--        {!! Form::text('phone', null, array('class'=>'form-control', 'id'=>'phone', 'placeholder'=>'Phone #')) !!}--}}
+{{--        {!! APFrmErrHelp::showErrors($errors, 'phone') !!} </div>--}}
+
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'country_id') !!}"> {!! htmlspecialchars_decode(Form::label('country_id', 'Country <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
+        {!! Form::select('country_id', ['' => 'Select Country']+$countries, old('country_id', (isset($company))? $company->country_id:$siteSetting->default_country_id), array('class'=>'form-control', 'id'=>'country_id')) !!}
+        {!! APFrmErrHelp::showErrors($errors, 'country_id') !!} </div>
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'state_id') !!}"> {!! htmlspecialchars_decode(Form::label('state_id', 'State <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
+        <span id="default_state_dd">
+            {!! Form::select('state_id', ['' => 'Select State'], null, array('class'=>'form-control', 'id'=>'state_id')) !!}
+        </span>
+        {!! APFrmErrHelp::showErrors($errors, 'state_id') !!} </div>
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'city_id') !!}"> {!! htmlspecialchars_decode(Form::label('city_id', 'City <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
+        <span id="default_city_dd">
+            {!! Form::select('city_id', ['' => 'Select City'], null, array('class'=>'form-control', 'id'=>'city_id')) !!}
+        </span>
+        {!! APFrmErrHelp::showErrors($errors, 'city_id') !!} </div>
+
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'phone') !!}">
+        <label for="phone">Phone <span style="color:red;">*</span></label>
+        <div class="input-group">
+            <span class="input-group-addon" id="country_code"></span>
+            {!! Form::text('phone', null, array('class'=>'form-control', 'id'=>'phone', 'placeholder'=>'Phone #')) !!}
+        </div>
+    </div>
 
 
 
@@ -82,19 +105,7 @@
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'pinterest') !!}"> {!! Form::label('pinterest', 'Pinterest', ['class' => 'bold']) !!}
         {!! Form::text('pinterest', null, array('class'=>'form-control', 'id'=>'pinterest', 'placeholder'=>'Pinterest')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'pinterest') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'country_id') !!}"> {!! Form::label('country_id', 'Country', ['class' => 'bold']) !!}                    
-        {!! Form::select('country_id', ['' => 'Select Country']+$countries, old('country_id', (isset($company))? $company->country_id:$siteSetting->default_country_id), array('class'=>'form-control', 'id'=>'country_id')) !!}
-        {!! APFrmErrHelp::showErrors($errors, 'country_id') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'state_id') !!}"> {!! Form::label('state_id', 'State', ['class' => 'bold']) !!}
-        <span id="default_state_dd">                    
-            {!! Form::select('state_id', ['' => 'Select State'], null, array('class'=>'form-control', 'id'=>'state_id')) !!}
-        </span>
-        {!! APFrmErrHelp::showErrors($errors, 'state_id') !!} </div>
-    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'city_id') !!}"> {!! Form::label('city_id', 'City', ['class' => 'bold']) !!}  
-        <span id="default_city_dd">                  
-            {!! Form::select('city_id', ['' => 'Select City'], null, array('class'=>'form-control', 'id'=>'city_id')) !!}
-        </span>
-        {!! APFrmErrHelp::showErrors($errors, 'city_id') !!} </div>
+
 
 
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'company_package_id') !!}"> {!! Form::label('company_package_id', 'Package', ['class' => 'bold']) !!}  
@@ -162,9 +173,11 @@
 @include('admin.shared.tinyMCEFront') 
 <script type="text/javascript">
     $(document).ready(function () {
+        getCountryCode();
         $('#country_id').on('change', function (e) {
             e.preventDefault();
             filterDefaultStates(0);
+            getCountryCode();
         });
         $(document).on('change', '#state_id', function (e) {
             e.preventDefault();
@@ -172,6 +185,17 @@
         });
         filterDefaultStates(<?php echo old('state_id', (isset($company)) ? $company->state_id : 0); ?>);
     });
+    function getCountryCode(){
+        var country_id = $('#country_id').val();
+
+        if (country_id != '') {
+            $.post("{{ route('filter.country.code') }}", {country_id: country_id, _method: 'POST', _token: '{{ csrf_token() }}'})
+                .done(function (response) {
+                    $('#country_code').text(response);
+                });
+        }
+    }
+
     function filterDefaultStates(state_id)
     {
         var country_id = $('#country_id').val();

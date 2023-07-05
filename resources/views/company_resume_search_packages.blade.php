@@ -35,7 +35,7 @@
                     <li class="plan-name">{{$package->package_title}}</li>
                     <li>
                         <div class="main-plan">
-                            <div class="plan-price1-1">$</div>
+                            <div class="plan-price1-2">{{ $symbol }}</div>
                             <div class="plan-price1-2">{{$package->package_price}}</div>
                             <div class="clearfix"></div>
                         </div>
@@ -71,7 +71,7 @@
                     <li class="plan-name">{{$package->package_title}}</li>
                     <li>
                         <div class="main-plan">
-                            <div class="plan-price1-1">{{ $siteSetting->default_currency_code }}</div>
+                            <div class="plan-price1-2">{{ $symbol }}</div>
                             <div class="plan-price1-2">{{$package->package_price}}</div>
                             <div class="clearfix"></div>
                         </div>

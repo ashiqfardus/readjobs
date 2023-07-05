@@ -25,7 +25,7 @@
         @endif  
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'first_name') !!}">
-        {!! Form::label('first_name', 'First Name', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('first_name', 'First Name <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::text('first_name', null, array('class'=>'form-control', 'id'=>'first_name', 'placeholder'=>'First Name')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'first_name') !!}                                       
     </div>
@@ -35,17 +35,17 @@
         {!! APFrmErrHelp::showErrors($errors, 'middle_name') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'last_name') !!}">
-        {!! Form::label('last_name', 'Last Name', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('last_name', 'Last Name <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::text('last_name', null, array('class'=>'form-control', 'id'=>'last_name', 'placeholder'=>'Last Name')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'last_name') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'email') !!}">
-        {!! Form::label('email', 'Email', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('email', 'Email <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::text('email', null, array('class'=>'form-control', 'id'=>'email', 'placeholder'=>'Email')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'email') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'password') !!}">
-        {!! Form::label('password', 'Password', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('password', 'Password <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::password('password', array('class'=>'form-control', 'id'=>'password', 'placeholder'=>'Password')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'password') !!}                                       
     </div>
@@ -55,7 +55,7 @@
         {!! APFrmErrHelp::showErrors($errors, 'father_name') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'date_of_birth') !!}">
-        {!! Form::label('date_of_birth', 'Date of Birth', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('date_of_birth', 'Date of Birth <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::text('date_of_birth', null, array('class'=>'form-control datepicker', 'id'=>'date_of_birth', 'placeholder'=>'Date of Birth', 'autocomplete'=>'off')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'date_of_birth') !!}                                       
     </div>
@@ -70,7 +70,7 @@
         {!! APFrmErrHelp::showErrors($errors, 'marital_status_id') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'nationality_id') !!}">
-        {!! Form::label('nationality_id', 'Nationality', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('nationality_id', 'Nationality <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::select('nationality_id', [''=>'Select Nationality']+$nationalities, null, array('class'=>'form-control', 'id'=>'nationality_id')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'nationality_id') !!}                                       
     </div>
@@ -80,28 +80,35 @@
         {!! APFrmErrHelp::showErrors($errors, 'national_id_card_number') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'country_id') !!}">
-        {!! Form::label('country_id', 'Country', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('country_id', 'Country <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::select('country_id', [''=>'Select Country']+$countries, old('country_id', (isset($user))? $user->country_id:$siteSetting->default_country_id), array('class'=>'form-control', 'id'=>'country_id')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'country_id') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'state_id') !!}">
-        {!! Form::label('state_id', 'State', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('state_id', 'State <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         <span id="default_state_dd">
             {!! Form::select('state_id', [''=>'Select State'], null, array('class'=>'form-control', 'id'=>'state_id')) !!}
         </span>
         {!! APFrmErrHelp::showErrors($errors, 'state_id') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'city_id') !!}">
-        {!! Form::label('city_id', 'City', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('city_id', 'City <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         <span id="default_city_dd">
             {!! Form::select('city_id', [''=>'Select City'], null, array('class'=>'form-control', 'id'=>'city_id')) !!}
         </span>
         {!! APFrmErrHelp::showErrors($errors, 'city_id') !!}                                       
     </div>
+{{--    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'phone') !!}">--}}
+{{--        {!! htmlspecialchars_decode(Form::label('phone', 'Phone <span style="color:red;">*</span>', ['class' => 'bold'])) !!}--}}
+{{--        {!! Form::text('phone', null, array('class'=>'form-control', 'id'=>'phone', 'placeholder'=>'Phone')) !!}--}}
+{{--        {!! APFrmErrHelp::showErrors($errors, 'phone') !!}                                       --}}
+{{--    </div>--}}
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'phone') !!}">
-        {!! Form::label('phone', 'Phone', ['class' => 'bold']) !!}                    
-        {!! Form::text('phone', null, array('class'=>'form-control', 'id'=>'phone', 'placeholder'=>'Phone')) !!}
-        {!! APFrmErrHelp::showErrors($errors, 'phone') !!}                                       
+        <label for="phone">Phone <span style="color:red;">*</span></label>
+        <div class="input-group">
+            <span class="input-group-addon" id="country_code"></span>
+            {!! Form::text('phone', null, array('class'=>'form-control', 'id'=>'phone', 'placeholder'=>'Phone')) !!}
+        </div>
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'mobile_num') !!}">
         {!! Form::label('mobile_num', 'Mobile Number', ['class' => 'bold']) !!}                    
@@ -119,12 +126,12 @@
         {!! APFrmErrHelp::showErrors($errors, 'career_level_id') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'industry_id') !!}">
-        {!! Form::label('industry_id', 'Industry', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('industry_id', 'Industry <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::select('industry_id', [''=>'Select Industry']+$industries, null, array('class'=>'form-control', 'id'=>'industry_id')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'industry_id') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'functional_area_id') !!}">
-        {!! Form::label('functional_area_id', 'Functional Area', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('functional_area_id', 'Functional Area <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::select('functional_area_id', [''=>'Select Functional Area']+$functionalAreas, null, array('class'=>'form-control', 'id'=>'functional_area_id')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'functional_area_id') !!}                                       
     </div>
@@ -144,7 +151,7 @@
         {!! APFrmErrHelp::showErrors($errors, 'salary_currency') !!}                                       
     </div>
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'street_address') !!}">
-        {!! Form::label('street_address', 'Street Address', ['class' => 'bold']) !!}                    
+        {!! htmlspecialchars_decode(Form::label('street_address', 'Street Address <span style="color:red;">*</span>', ['class' => 'bold'])) !!}
         {!! Form::textarea('street_address', null, array('class'=>'form-control', 'id'=>'street_address', 'placeholder'=>'Street Address')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'street_address') !!}                                       
     </div>
@@ -248,6 +255,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         initdatepicker();
+        getCountryCode();
         $('#salary_currency').typeahead({
             source: function (query, process) {
                 return $.get("{{ route('typeahead.currency_codes') }}", {query: query}, function (data) {
@@ -261,6 +269,7 @@
         $('#country_id').on('change', function (e) {
             e.preventDefault();
             filterDefaultStates(0);
+            getCountryCode();
         });
         $(document).on('change', '#state_id', function (e) {
             e.preventDefault();
@@ -268,6 +277,17 @@
         });
         filterDefaultStates(<?php echo old('state_id', (isset($user)) ? $user->state_id : 0); ?>);
     });
+
+    function getCountryCode(){
+        var country_id = $('#country_id').val();
+
+        if (country_id != '') {
+            $.post("{{ route('filter.country.code') }}", {country_id: country_id, _method: 'POST', _token: '{{ csrf_token() }}'})
+                .done(function (response) {
+                    $('#country_code').text(response);
+                });
+        }
+    }
     function filterDefaultStates(state_id)
     {
         var country_id = $('#country_id').val();

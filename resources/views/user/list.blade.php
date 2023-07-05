@@ -4,7 +4,7 @@
 @include('includes.header') 
 <!-- Header end --> 
 <!-- Inner Page Title start --> 
-@include('includes.inner_page_title', ['page_title'=>__('Job Seekers')]) 
+{{--@include('includes.inner_page_title', ['page_title'=>__('Job Seekers')]) --}}
 <!-- Inner Page Title end -->
 
 @include('flash::message')

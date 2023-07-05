@@ -1,4 +1,9 @@
 <?php
+//verify company OTP
+Route::get('verifyOtpCompany', 'Company\Auth\VerifyOtpController@showOtpPage')->name('show.verifyOtp.company');
+Route::post('verifyOtpRequestCompany', 'Company\Auth\VerifyOtpController@verifyOtp')->name('verifyOtp.company');
+Route::get('resendCompany', 'Company\Auth\VerifyOtpController@resendOtp')->name('resend.company');
+
 Route::get('company-packages', 'Company\CompanyController@resume_search_packages')->name('company.packages');
 Route::get('unloced-seekers', 'Company\CompanyController@unlocked_users')->name('company.unloced-users');
 Route::get('unlock/{user}', 'Company\CompanyController@unlock')->name('company.unlock');

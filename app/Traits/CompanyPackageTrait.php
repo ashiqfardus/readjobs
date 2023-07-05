@@ -43,16 +43,14 @@ trait CompanyPackageTrait
     }
 
     public function addCompanySearchPackage($company, $package,$method='')
-
     {
 
         $now = Carbon::now();
-
         $company->cvs_package_id = $package->id;
 
-        $company->cvs_package_start_date = $now;
+        $company->cvs_package_start_date = date('Y-m-d h:i:s');
 
-        $company->cvs_package_end_date = $now->addDays($package->package_num_days);
+        $company->cvs_package_end_date = $now->addDays($package->package_num_days);;
 
         $company->cvs_quota = $package->package_num_listings;
 

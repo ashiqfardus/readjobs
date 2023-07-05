@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Http\Controllers\Admin\CareerLevelController;
 use Mail;
 use Hash;
 use File;
 use ImgUploader;
 use Auth;
 use Validator;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Input;
 use Redirect;
 use App\Subscription;
@@ -57,13 +58,20 @@ class CompanyController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('company', ['except' => ['companyDetail', 'sendContactForm']]);
+        $this->middleware(['company','CompanyTwoFA'], ['except' => ['companyDetail', 'sendContactForm']]);
         $this->runCheckPackageValidity();
     }
 
     public function index()
     {
-        return view('company_home');
+        $siteSetting = DB::table('site_settings')->get();
+        $country_code =DB::table('countries')
+            ->select('countries_details.symbol')
+            ->leftJoin('countries_details','countries.sort_order', '=','countries_details.id')
+            ->where('countries.id',$siteSetting[0]->default_country_id)
+            ->get();
+        $symbol = $country_code[0]->symbol;
+        return view('company_home')->with('symbol',$symbol);
     }
     public function company_listing()
     {
@@ -108,7 +116,13 @@ class CompanyController extends Controller
         $company->map = $request->input('map');
         $company->no_of_offices = $request->input('no_of_offices');
         $website = $request->input('website');
-        $company->website = (false === strpos($website, 'http')) ? 'http://' . $website : $website;
+        if (isset($website)){
+            $company->website = (false === strpos($website, 'http')) ? 'http://' . $website : $website;
+        }
+        else{
+            $company->website = null;
+        }
+
         $company->no_of_employees = $request->input('no_of_employees');
         $company->established_in = $request->input('established_in');
         $company->fax = $request->input('fax');
@@ -472,8 +486,14 @@ class CompanyController extends Controller
             $data['success_package'] = '';
         }
 
-        //dd($data['success_package']);
-        return view('company_resume_search_packages')->with($data);
+        $siteSetting = DB::table('site_settings')->get();
+        $country_code =DB::table('countries')
+            ->select('countries_details.symbol')
+            ->leftJoin('countries_details','countries.sort_order', '=','countries_details.id')
+            ->where('countries.id',$siteSetting[0]->default_country_id)
+            ->get();
+        $symbol = $country_code[0]->symbol;
+        return view('company_resume_search_packages')->with($data)->with('symbol', $symbol);
     }
     public function unlocked_users()
 
@@ -491,31 +511,59 @@ class CompanyController extends Controller
     public function unlock($user_id)
     {
         $cvsSearch = Auth::guard('company')->user();
-        if (null !== ($cvsSearch)) {
-            if ($cvsSearch->availed_cvs_ids != '') {
+        $cvs_package_id = Auth::guard('company')->user()->cvs_package_id;
+        $package_start_date = Auth::guard('company')->user()->cvs_package_start_date;
+        $package_end_date = Auth::guard('company')->user()->cvs_package_end_date;
+        $cv_quota = Auth::guard('company')->user()->cvs_quota;
+        $availed_cv_quota = Auth::guard('company')->user()->availed_cvs_quota;
+        $availed_cvs_ids = Auth::guard('company')->user()->availed_cvs_ids;
+//        $cvs_ids = explode(',',$availed_cvs_ids);
+        $date = date('Y-m-d H:i:s');
 
-                $newString = $this->addtoString($cvsSearch->availed_cvs_ids, $user_id);
-            } else {
-                $newString = $user_id;
+        //check if there is any cv packages
+        if (null !== ($cvs_package_id)) {
+            //check package validity
+            if ($date>= $package_start_date && $date <= $package_end_date){
+                if ($availed_cv_quota<$cv_quota){
+                    if ($cvsSearch->availed_cvs_ids != '') {
+//                        if (!in_array($cvs_ids,$user_id)){
+                            $newString = $this->addtoString($cvsSearch->availed_cvs_ids, $user_id);
+//                        }
+//                        else{
+//                            $newString=$availed_cvs_ids;
+//                        }
+                    } else {
+                        $newString = $user_id;
+                    }
+
+                    $cvsSearch->availed_cvs_ids  = $newString;
+                    $cvsSearch->availed_cvs_quota += 1;
+                    $cvsSearch->update();
+
+                    $unlock = Unlocked_users::where('company_id', Auth::guard('company')->user()->id)->first();
+                    if (null !== ($unlock)) {
+                        $unlock->unlocked_users_ids  = $newString;
+                        $unlock->update();
+                    } else {
+                        $unlock = new Unlocked_users();
+
+                        $unlock->company_id  = Auth::guard('company')->user()->id;
+                        $unlock->unlocked_users_ids  = $newString;
+                        $unlock->save();
+                    }
+                    return redirect()->back();
+                }
+                else{
+                    flash(__('You have reached the limit of your quota.'))->error();
+                    return redirect('/company-packages');
+                }
             }
-
-            $cvsSearch->availed_cvs_ids  = $newString;
-            $cvsSearch->availed_cvs_quota += 1;
-            $cvsSearch->update();
-
-            $unlock = Unlocked_users::where('company_id', Auth::guard('company')->user()->id)->first();
-            if (null !== ($unlock)) {
-                $unlock->unlocked_users_ids  = $newString;
-                $unlock->update();
-            } else {
-                $unlock = new Unlocked_users();
-
-                $unlock->company_id  = Auth::guard('company')->user()->id;
-                $unlock->unlocked_users_ids  = $newString;
-                $unlock->save();
-            }
-            return redirect()->back();
+            else {
+                    flash(__('Package has been expired.'))->error();
+                    return redirect('/company-packages');
+                }
         } else {
+            flash(__('Get a package to unlock profile.'))->error();
             return redirect('/company-packages');
         }
     }

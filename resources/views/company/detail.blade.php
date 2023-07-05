@@ -295,7 +295,7 @@
                 <div class="job-header">
 
                     <div class="jobdetail">
-                        <iframe src="https://maps.google.it/maps?q={{urlencode(strip_tags($company->map))}}&output=embed" allowfullscreen></iframe>
+                        {{$company->map}}
                     </div>
 
                 </div>

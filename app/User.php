@@ -1,32 +1,25 @@
 <?php
 
 
-
 namespace App;
 
 
-
-use Auth;
-
-use App\JobSkill;
-
-use App\CompanyMessage;
-
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Notifications\Notifiable;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-use App\Traits\CountryStateCity;
-
+use App\Mail\LoginOTPMail;
 use App\Traits\CommonUserFunctions;
+use App\Traits\CountryStateCity;
+use Auth;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use ImgUploader;
+use Twilio\Rest\Client;
 
 
-
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 
 {
-
 
 
     use Notifiable;
@@ -36,35 +29,25 @@ class User extends Authenticatable implements MustVerifyEmail
     use CommonUserFunctions;
 
 
-
     /**
-
      * The attributes that are mass assignable.
-
      *
-
      * @var array
-
      */
 
     protected $fillable = [
 
-        'id','name', 'email', 'password','date_of_birth', 'phone'
+        'name', 'email', 'password', 'verified'
 
     ];
 
     protected $dates = ['created_at', 'updated_at', 'date_of_birth', 'package_start_date', 'package_end_date'];
 
 
-
     /**
-
      * The attributes that should be hidden for arrays.
-
      *
-
      * @var array
-
      */
 
     protected $hidden = [
@@ -74,7 +57,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
-
     public function profileSummary()
 
     {
@@ -82,7 +64,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\ProfileSummary', 'user_id', 'id');
 
     }
-
 
 
     public function getProfileSummary($field = '')
@@ -112,7 +93,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function profileProjects()
 
     {
@@ -120,7 +100,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\ProfileProject', 'user_id', 'id');
 
     }
-
 
 
     public function getProfileProjectsArray()
@@ -132,7 +111,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function getDefaultCv()
 
     {
@@ -140,17 +118,14 @@ class User extends Authenticatable implements MustVerifyEmail
         $cv = ProfileCv::where('user_id', '=', $this->id)->where('is_default', '=', 1)->first();
 
 
-
         if (null === $cv)
 
             $cv = ProfileCv::where('user_id', '=', $this->id)->first();
 
 
-
         return $cv;
 
     }
-
 
 
     public function profileCvs()
@@ -162,7 +137,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function getProfileCvsArray()
 
     {
@@ -170,7 +144,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->profileCvs->pluck('id')->toArray();
 
     }
-
 
 
     public function countProfileCvs()
@@ -182,7 +155,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function profileExperience()
 
     {
@@ -190,7 +162,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\ProfileExperience', 'user_id', 'id');
 
     }
-
 
 
     public function profileEducation()
@@ -202,7 +173,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function profileSkills()
 
     {
@@ -212,7 +182,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function getProfileSkills()
 
     {
@@ -220,7 +189,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->profileSkills->get();
 
     }
-
 
 
     public function getProfileSkillsStr()
@@ -248,7 +216,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function profileLanguages()
 
     {
@@ -256,7 +223,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\ProfileLanguage', 'user_id', 'id');
 
     }
-
 
 
     public function favouriteJobs()
@@ -268,7 +234,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function getFavouriteJobSlugsArray()
 
     {
@@ -276,7 +241,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->favouriteJobs->pluck('job_slug')->toArray();
 
     }
-
 
 
     public function isFavouriteJob($job_slug)
@@ -300,7 +264,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function favouriteCompanies()
 
     {
@@ -308,7 +271,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\FavouriteCompany', 'user_id', 'id');
 
     }
-
 
 
     public function getFavouriteCompanies()
@@ -320,9 +282,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     /*     * ****************************** */
-
 
 
     public function isAppliedOnJob($job_id)
@@ -346,7 +306,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function appliedJobs()
 
     {
@@ -354,7 +313,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\JobApply', 'user_id', 'id');
 
     }
-
 
 
     public function getAppliedJobIdsArray()
@@ -366,9 +324,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     /*     * ***************************** */
-
 
 
     public function isFavouriteCompany($company_slug)
@@ -392,36 +348,32 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function printUserImage($width = 0, $height = 0)
 
     {
-
 
 
         $image = (string)$this->image;
 
         $image = (!empty($image)) ? $image : 'no-no-image.gif';
 
-        return \ImgUploader::print_image("user_images/$image", $width, $height, '/admin_assets/no-image.png', $this->getName());
+        return ImgUploader::print_image("user_images/$image", $width, $height, '/admin_assets/no-image.png', $this->getName());
 
     }
 
-	
 
-	public function printUserCoverImage($width = 0, $height = 0)
+    public function printUserCoverImage($width = 0, $height = 0)
 
     {
 
-        $cover_image = (string) $this->cover_image;
+        $cover_image = (string)$this->cover_image;
 
         $cover_image = (!empty($cover_image)) ? $cover_image : 'no-no-image.gif';
 
-        return \ImgUploader::print_image("user_images/$cover_image", $width, $height, '/admin_assets/no-cover.jpg', $this->name);
+        return ImgUploader::print_image("user_images/$cover_image", $width, $height, '/admin_assets/no-cover.jpg', $this->name);
 
     }
 
-	
 
     public function getName()
 
@@ -434,11 +386,9 @@ class User extends Authenticatable implements MustVerifyEmail
             $html .= $this->first_name;
 
 
-
         if (!empty($this->middle_name))
 
             $html .= ' ' . $this->middle_name;
-
 
 
         if (!empty($this->last_name))
@@ -446,11 +396,9 @@ class User extends Authenticatable implements MustVerifyEmail
             $html .= ' ' . $this->last_name;
 
 
-
         return $html;
 
     }
-
 
 
     public function getAge()
@@ -470,7 +418,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function careerLevel()
 
     {
@@ -478,7 +425,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\CareerLevel', 'career_level_id', 'career_level_id');
 
     }
-
 
 
     public function getCareerLevel($field = '')
@@ -508,7 +454,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function jobExperience()
 
     {
@@ -516,7 +461,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\JobExperience', 'job_experience_id', 'job_experience_id');
 
     }
-
 
 
     public function getJobExperience($field = '')
@@ -546,7 +490,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function gender()
 
     {
@@ -554,7 +497,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\Gender', 'gender_id', 'gender_id');
 
     }
-
 
 
     public function getGender($field = '')
@@ -584,7 +526,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function maritalStatus()
 
     {
@@ -592,7 +533,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\MaritalStatus', 'marital_status_id', 'marital_status_id');
 
     }
-
 
 
     public function getMaritalStatus($field = '')
@@ -622,7 +562,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function followingCompanies()
 
     {
@@ -630,7 +569,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\FavouriteCompany', 'user_id', 'id');
 
     }
-
 
 
     public function getFollowingCompaniesSlugArray()
@@ -642,7 +580,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function countFollowings()
 
     {
@@ -650,7 +587,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return FavouriteCompany::where('user_id', '=', $this->id)->count();
 
     }
-
 
 
     public function countApplicantMessages()
@@ -662,7 +598,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function package()
 
     {
@@ -670,7 +605,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne('App\Package', 'id', 'package_id');
 
     }
-
 
 
     public function getPackage($field = '')
@@ -696,7 +630,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function industry()
 
     {
@@ -704,7 +637,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\Industry', 'industry_id', 'industry_id');
 
     }
-
 
 
     public function getIndustry($field = '')
@@ -734,7 +666,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-
     public function functionalArea()
 
     {
@@ -742,7 +673,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\FunctionalArea', 'functional_area_id', 'functional_area_id');
 
     }
-
 
 
     public function getFunctionalArea($field = '')
@@ -774,31 +704,67 @@ class User extends Authenticatable implements MustVerifyEmail
     public function countUserMessages()
 
 
-
     {
-
 
 
         return CompanyMessage::where('seeker_id', '=', $this->id)->where('status', '=', 'unviewed')->where('type', '=', 'message')->count();
 
 
-
     }
-
 
 
     public function countMessages($id)
 
 
-
     {
-
 
 
         return CompanyMessage::where('seeker_id', '=', $this->id)->where('company_id', '=', $id)->where('status', '=', 'unviewed')->where('type', '=', 'message')->count();
 
 
+    }
 
+    //send verification OTP
+    public function getOtp(){
+        $opt_var = 'candidate_otp_'.auth()->user()->id;
+        return Cache::get("'.$opt_var.'");
+    }
+
+    public function generateOtp(){
+        $otp = rand(99999, 111111);
+        $opt_var = 'candidate_otp_'.auth()->user()->id;
+        Cache::put(["'.$opt_var.'"=>$otp], now()->addMinutes(20));
+        return $otp;
+    }
+
+    public function sendOtp(){
+        $otp = $this->generateOtp();
+        $country_code = DB::table('countries')
+            ->select('countries_details.phone_code')
+            ->leftJoin('countries_details','countries.sort_order', '=','countries_details.id')
+            ->where('countries.id',auth()->user()->country_id)
+            ->get();
+//        dd($country_code);
+        $receiver = $country_code[0]->phone_code.auth()->user()->phone;
+        $message = 'Your OTP is '.$otp;
+
+        Mail::to(auth()->user()->email)->send(new LoginOTPMail($otp));
+
+        try {
+            $accountSid = config('app.twilio')['TWILIO_SID'];
+            $authToken = config('app.twilio')['TWILIO_TOKEN'];
+            $twilioNumber = config('app.twilio')['TWILIO_FROM'];
+
+            $client = new Client($accountSid, $authToken);
+
+            $client->messages->create($receiver, [
+                'from' => $twilioNumber,
+                'body' =>$message
+            ]);
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
 }

@@ -25,6 +25,7 @@ include_once($real_path . 'job_type.php');
 include_once($real_path . 'job_shift.php');
 include_once($real_path . 'degree_level.php');
 include_once($real_path . 'degree_type.php');
+include_once($real_path . 'certification_type.php');
 include_once($real_path . 'major_subject.php');
 include_once($real_path . 'language.php');
 include_once($real_path . 'state.php');
@@ -41,7 +42,6 @@ include_once($real_path . 'video.php');
 include_once($real_path . 'testimonial.php');
 include_once($real_path . 'slider.php');
 include_once($real_path . 'bulk_upload.php');
-
 
 Route::group(['namespace' => 'Admin'], function () {
     Route::get('/blog_category', 'Blog_categoriesController@index');

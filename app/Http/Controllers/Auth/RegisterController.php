@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\DataArrayHelper;
 use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -47,17 +48,18 @@ use RegistersUsers;
         $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError']]);
     }
 
+
     public function register(UserFrontRegisterFormRequest $request)
     {
-//        dd(config('mail.recieve_to.name'));
-//        return $request;
         $user = new User();
         $user->first_name = $request->input('first_name');
         $user->middle_name = $request->input('middle_name');
         $user->last_name = $request->input('last_name');
+        $user->country_id = $request->input('country');
+        $user->phone = $request->input('phone');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
-        $user->is_active = 0;
+        $user->is_active = 1;
         $user->verified = 0;
         $user->save();
         /*         * *********************** */
@@ -67,9 +69,14 @@ use RegistersUsers;
         event(new Registered($user));
         event(new UserRegistered($user));
         $this->guard()->login($user);
-        UserVerification::generate($user);
-        UserVerification::send($user, 'User Verification', config('mail.recieve_to.address'), config('mail.recieve_to.name'));
+//        UserVerification::generate($user);
+//        UserVerification::send($user, 'User Verification', config('mail.recieve_to.address'), config('mail.recieve_to.name'));
         return $this->registered($request, $user) ?: redirect($this->redirectPath());
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        auth()->user()->sendOtp();
     }
 
 }

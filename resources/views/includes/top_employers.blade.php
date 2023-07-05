@@ -30,12 +30,12 @@
     </div> 
 	
 	
-	<div class="largebanner shadow3">
-<div class="adin">
-{!! $siteSetting->index_page_below_top_employes_ad !!}
-</div>
-<div class="clearfix"></div>
-</div>
+<!--	<div class="largebanner shadow3">-->
+<!--<div class="adin">-->
+<!--{!! $siteSetting->index_page_below_top_employes_ad !!}-->
+<!--</div>-->
+<!--<div class="clearfix"></div>-->
+<!--</div>-->
 
 	
 	

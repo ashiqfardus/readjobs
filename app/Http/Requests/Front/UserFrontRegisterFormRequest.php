@@ -39,6 +39,9 @@ class UserFrontRegisterFormRequest extends Request
                     'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/'
                 ],
             'terms_of_use' => 'required',
+            'country' => 'required',
+            'country_code' => 'required',
+            'phone' => 'required',
             'g-recaptcha-response' => 'required|captcha',
         ];
     }
@@ -47,8 +50,9 @@ class UserFrontRegisterFormRequest extends Request
     {
         return [
             'first_name.required' => __('First Name is required'),
-            'middle_name.required' => __('Middle Name is required'),
             'last_name.required' => __('Last Name is required'),
+            'country.required' => __('Country is required'),
+            'phone.required' => __('Phone number is required'),
             'email.required' => __('Email is required'),
             'email.email' => __('The email must be a valid email address'),
             'email.unique' => __('This Email has already been taken'),

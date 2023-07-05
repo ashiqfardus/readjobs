@@ -15,9 +15,9 @@
     <ul class="usernavdash">
         <li class="{{ Request::url() == route('home') ? 'active' : '' }}"><a href="{{route('home')}}"><i class="fa fa-tachometer" aria-hidden="true"></i> {{__('Dashboard')}}</a>
         </li>
-        <li class="{{ Request::url() == route('my.profile') ? 'active' : '' }}"><a href="{{ route('my.profile') }}"><i class="fa fa-pencil" aria-hidden="true"></i> {{__('Edit Profile')}}</a>
+        <li class="{{ Request::url() == route('my.profile') ? 'active' : '' }}"><a href="{{ route('my.profile') }}" ><i class="fa fa-pencil" aria-hidden="true"></i> {{__('Edit Profile')}}</a>
         </li>
-        <li><a href="{{ route('view.public.profile', Auth::user()->id) }}"><i class="fa fa-eye" aria-hidden="true"></i> {{__('View Public Profile')}}</a>
+        <li><a href="{{ route('view.public.profile', Auth::user()->id) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> {{__('View Public Profile')}}</a>
         </li>
         <li class="{{ Request::url() == route('my.job.applications') ? 'active' : '' }}"><a href="{{ route('my.job.applications') }}"><i class="fa fa-desktop" aria-hidden="true"></i> {{__('My Job Applications')}}</a>
         </li>

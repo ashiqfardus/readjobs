@@ -50,13 +50,14 @@ $real_path = realpath(__DIR__) . DIRECTORY_SEPARATOR . 'front_routes' . DIRECTOR
 
 
 /* * ******** IndexController ************ */
+AcceptCookies::routes();
 
 Route::get('send_mail', function (){
-    Mail::raw('test mail from readjobs local host', function($message)
+    Mail::raw('test mail from readjobs new server', function($message)
     {
         $message->from('us@example.com', 'Laravel');
 
-        $message->to('ashiqfardus16@gmail.com')->cc('ashiqfardus@hotmail.com');
+        $message->to('ashiqfardus16@gmail.com')->cc(['ashiqfardus@hotmail.com', 'a.islam@goldengroup-bd.com', 'info@readjobs.co.uk']);
     });
     dd('Mail is Successfully Send');
 });

@@ -1,8 +1,15 @@
 <?php
 
 /* * ******** UserController ************ */
+
+//verify OTP Controller
+
+Route::get('verifyOtp', 'Auth\VerifyOTPController@showOtpPage')->name('show.verifyOtp');
+Route::post('verifyOtpRequest', 'Auth\VerifyOTPController@verifyOtp')->name('verifyOtp');
+Route::get('resend', 'Auth\VerifyOTPController@resendOtp')->name('resend');
+
 Route::get('my-profile', 'UserController@myProfile')->name('my.profile');
-//Route::put('my-profile', 'UserController@updateMyProfile')->name('my.profile');
+Route::put('my-profile', 'UserController@updateMyProfile')->name('my.profile.update');
 Route::get('view-public-profile/{id}', 'UserController@viewPublicProfile')->name('view.public.profile');
 Route::post('update-front-profile-summary/{id}', 'UserController@updateProfileSummary')->name('update.front.profile.summary');
 Route::post('update-immediate-available-status', 'UserController@updateImmediateAvailableStatus')->name('update.immediate.available.status');

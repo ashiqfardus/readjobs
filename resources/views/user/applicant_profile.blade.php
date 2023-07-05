@@ -4,7 +4,7 @@
 @include('includes.header') 
 <!-- Header end --> 
 <!-- Inner Page Title start --> 
-@include('includes.inner_page_title', ['page_title'=>__($page_title)]) 
+{{--@include('includes.inner_page_title', ['page_title'=>__($page_title)]) --}}
 <?php $true = FALSE; ?>
 
 <?php 

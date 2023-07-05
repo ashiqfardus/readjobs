@@ -31,7 +31,7 @@
                                     <div class="tab-pane fade active in" id="Details"> <div class="form-body">
                                             <div class="form-group " id="company_id_div">
                                                 <label for="company_id" class="bold">Upload file ( <span style="color: red; font-size: 11px;">xlsx, csv</span>)</label>
-                                                <input type="file" class="form-control" name="file" id="file" accept=".xlsx, .csv">
+                                                <input type="file" class="form-control" name="file" id="file" accept=".xlsx, .csv" required>
                                             </div>
                                             <div class="form-actions">
                                                 <button class="btn btn-large btn-primary" type="submit">Update <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>

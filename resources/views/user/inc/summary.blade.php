@@ -6,8 +6,9 @@
             <div class="form-body">
                 <div id="success_msg"></div>
                 <div class="formrow {!! APFrmErrHelp::hasError($errors, 'summary') !!}">
-                    <textarea name="summary" class="form-control" id="summary" placeholder="{{__('Profile Summary')}}">{{ old('summary', $user->getProfileSummary('summary')) }}</textarea>
-                    <span class="help-block summary-error"></span> </div>
+                    <label for="summary">Please tell in few words what you're looking for <span style="color: red;">*</span></label>
+                    <textarea name="summary" class="form-control" id="summary">{{ old('summary', $user->getProfileSummary('summary')) }}</textarea>
+                    <span class="help-block summary-error" style="color: red; font-size: 11px;"></span> </div>
                 <button type="button" class="btn btn-large btn-primary" onClick="submitProfileSummaryForm();">{{__('Update Summary')}} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
             </div>
         </form>
@@ -24,6 +25,7 @@
             dataType: 'json',
             success: function (json) {
                 $("#success_msg").html("<span class='text text-success'>{{__('Summary updated successfully')}}</span>");
+                $('.help-block').html('');
             },
             error: function (json) {
                 if (json.status === 422) {
