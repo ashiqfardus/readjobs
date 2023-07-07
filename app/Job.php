@@ -53,6 +53,19 @@ class Job extends Model
         return $this->jobCertifications->pluck('certification_id')->toArray();
     }
 
+
+    public function getJobCertificationList()
+    {
+        $str = '';
+        if ($this->jobCertifications->count()) {
+            $jobCertifications = $this->jobCertifications;
+            foreach ($jobCertifications as $jobCertification) {
+                $certification = $jobCertification->getJobCertification();
+                $str .= '<li><a href="' . route('job.list', ['certification_id[]' => $certification->certification_id]) . '">' . $certification->certification_name . '</a></li>';
+            }
+        }
+        return $str;
+    }
     public function getJobSkillsArray()
     {
         return $this->jobSkills->pluck('job_skill_id')->toArray();

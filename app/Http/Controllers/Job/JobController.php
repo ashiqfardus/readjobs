@@ -67,6 +67,7 @@ class JobController extends Controller
         $company_ids = $request->query('company_id', array());
         $industry_ids = $request->query('industry_id', array());
         $job_skill_ids = $request->query('job_skill_id', array());
+        $job_certification_ids = $request->query('certification_id', array());
         $functional_area_ids = $request->query('functional_area_id', array());
         $country_ids = $request->query('country_id', array());
         $state_ids = $request->query('state_id', array());
@@ -85,7 +86,7 @@ class JobController extends Controller
         $order_by = $request->query('order_by', 'id');
         $limit = 15;
         
-        $jobs = $this->fetchJobs($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, $order_by, $limit);
+        $jobs = $this->fetchJobs($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, $order_by, $limit,$job_certification_ids);
 
         /*         * ************************************************** */
 
@@ -193,6 +194,7 @@ class JobController extends Controller
         $company_ids = array();
         $industry_ids = array();
         $job_skill_ids = (array) $job->getJobSkillsArray();
+        $job_certification_ids = (array) $job->getJobCertificationsArray();
         $functional_area_ids = (array) $job->getFunctionalArea('functional_area_id');
         $country_ids = (array) $job->getCountry('country_id');
         $state_ids = (array) $job->getState('state_id');
@@ -211,7 +213,7 @@ class JobController extends Controller
         $order_by = 'id';
         $limit = 5;
 
-        $relatedJobs = $this->fetchJobs($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, $order_by, $limit);
+        $relatedJobs = $this->fetchJobs($search, $job_titles, $company_ids, $industry_ids, $job_skill_ids, $functional_area_ids, $country_ids, $state_ids, $city_ids, $is_freelance, $career_level_ids, $job_type_ids, $job_shift_ids, $gender_ids, $degree_level_ids, $job_experience_ids, $salary_from, $salary_to, $salary_currency, $is_featured, $order_by, $limit, $job_certification_ids);
         /*         * ***************************************** */
 
         $seoArray = $this->getSEO((array) $job->functional_area_id, (array) $job->country_id, (array) $job->state_id, (array) $job->city_id, (array) $job->career_level_id, (array) $job->job_type_id, (array) $job->job_shift_id, (array) $job->gender_id, (array) $job->degree_level_id, (array) $job->job_experience_id);

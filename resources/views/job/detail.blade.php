@@ -140,6 +140,15 @@ $company = $job->getCompany();
                         </ul>
                     </div>
                 </div>
+
+                <div class="job-header">
+                    <div class="contentbox">
+                        <h3><i class="fa fa-puzzle-piece" aria-hidden="true"></i> {{__('Certification Required')}}</h3>
+                        <ul class="skillslist">
+                            {!!$job->getJobCertificationList()!!}
+                        </ul>
+                    </div>
+                </div>
 				
 				
                 <!-- Job Description end --> 

@@ -34,5 +34,20 @@ class CertificationManager extends Model
         return $this->belongsTo('App\CertificationType', 'certification_id', 'id');
     }
 
+    public function getJobCertification($field = '')
+    {
+        $jobCertification = $this->jobCertification()->lang()->first();
+        if (null === $jobCertification) {
+            $jobCertification = $this->jobCertification()->first();
+        }
+        if (null !== $jobCertification) {
+            if (!empty($field)) {
+                return $jobCertification->$field;
+            } else {
+                return $jobCertification;
+            }
+        }
+    }
+
 
 }
