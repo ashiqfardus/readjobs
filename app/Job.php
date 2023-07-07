@@ -45,6 +45,14 @@ class Job extends Model
         return $this->hasMany('App\JobSkillManager', 'job_id', 'id');
     }
 
+    public function jobCertifications(){
+        return $this->hasMany('App\CertificationManager', 'job_id', 'id');
+    }
+
+    public function getJobCertificationsArray(){
+        return $this->jobCertifications->pluck('certification_id')->toArray();
+    }
+
     public function getJobSkillsArray()
     {
         return $this->jobSkills->pluck('job_skill_id')->toArray();

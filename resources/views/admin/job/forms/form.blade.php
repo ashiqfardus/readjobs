@@ -81,6 +81,16 @@
         {!! Form::select('career_level_id', ['' => 'Select Career level']+$careerLevels, null, array('class'=>'form-control', 'id'=>'career_level_id')) !!}
         {!! APFrmErrHelp::showErrors($errors, 'career_level_id') !!}                                       
     </div>
+
+    <div class="form-group {!! APFrmErrHelp::hasError($errors, 'certifications') !!}" id="certifications_div">
+        {!! Form::label('certifications', 'Certifications', ['class' => 'bold']) !!}
+        <?php
+        $certifications = old('certifications', $jobCertificationIds);
+        ?>
+        {!! Form::select('certifications[]', $jobCertifications, $certifications, array('class'=>'form-control select2-multiple-certification', 'id'=>'certifications', 'multiple'=>'multiple')) !!}
+        {!! APFrmErrHelp::showErrors($errors, 'certifications') !!}
+    </div>
+
     <div class="form-group {!! APFrmErrHelp::hasError($errors, 'salary_from') !!}" id="salary_from_div">
         {!! Form::label('salary_from', 'Salary From', ['class' => 'bold']) !!}                    
         {!! Form::number('salary_from', null, array('class'=>'form-control', 'id'=>'salary_from')) !!}
@@ -219,6 +229,12 @@
             placeholder: "Select Required Skills",
             allowClear: true
         });
+
+        $('.select2-multiple-certification').select2({
+            placeholder: "Select Required Certifications",
+            allowClear: true
+        });
+
         $(".datepicker").datepicker({
             autoclose: true,
             format: 'yyyy-m-d'
@@ -232,6 +248,25 @@
             filterDefaultCities(0);
         });
         filterDefaultStates(<?php echo old('state_id', (isset($job)) ? $job->state_id : 0); ?>);
+
+        $('#career_level_id').on('change', function (e) {
+            e.preventDefault();
+            var career_id = $(this).val();
+            if(career_id==24){
+                $('#certifications_div').show();
+            }
+            else{
+                $('#certifications_div').hide();
+            }
+        });
+
+        var career_id = $('#career_level_id').val();
+        if(career_id==24){
+            $('#certifications_div').show();
+        }
+        else{
+            $('#certifications_div').hide();
+        }
     });
     function filterDefaultStates(state_id)
     {

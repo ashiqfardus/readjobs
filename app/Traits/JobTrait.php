@@ -6,6 +6,7 @@ namespace App\Traits;
 
 
 
+use App\CertificationManager;
 use Auth;
 
 use DB;
@@ -79,6 +80,7 @@ trait JobTrait
 
 
     use Skills;
+    use Certifications;
 
 
 
@@ -93,6 +95,7 @@ trait JobTrait
             $job = Job::findOrFail($id);
 
             JobSkillManager::where('job_id', '=', $id)->delete();
+            CertificationManager::where('job_id', '=', $id)->delete();
 
             $job->delete();
 
@@ -238,7 +241,11 @@ trait JobTrait
 
         $salaryPeriods = DataArrayHelper::defaultSalaryPeriodsArray();
 
+        $jobCertifications = DataArrayHelper::defaultCertificationArray();
+
         $jobSkillIds = array();
+
+        $jobCertificationIds = array();
 
         return view('admin.job.add')
 
@@ -265,6 +272,10 @@ trait JobTrait
                         ->with('jobSkillIds', $jobSkillIds)
 
                         ->with('degreeLevels', $degreeLevels)
+
+                        ->with('jobCertifications', $jobCertifications)
+
+                        ->with('jobCertificationIds', $jobCertificationIds)
 
                         ->with('salaryPeriods', $salaryPeriods);
 
@@ -301,6 +312,9 @@ trait JobTrait
         /*         * ************************************ */
 
         $this->storeJobSkills($request, $job->id);
+
+
+        $this->storeJobCertifications($request, $job->id);
 
         /*         * ************************************ */
 
@@ -344,11 +358,13 @@ trait JobTrait
 
         $salaryPeriods = DataArrayHelper::defaultSalaryPeriodsArray();
 
-
+        $jobCertifications = DataArrayHelper::defaultCertificationArray();
 
         $job = Job::findOrFail($id);
 
         $jobSkillIds = $job->getJobSkillsArray();
+
+        $jobCertificationIds = $job->getJobCertificationsArray();
 
         return view('admin.job.edit')
 
@@ -373,6 +389,10 @@ trait JobTrait
                         ->with('jobSkills', $jobSkills)
 
                         ->with('jobSkillIds', $jobSkillIds)
+
+                        ->with('jobCertifications', $jobCertifications)
+
+                        ->with('jobCertificationIds', $jobCertificationIds)
 
                         ->with('degreeLevels', $degreeLevels)
 
@@ -415,6 +435,7 @@ trait JobTrait
         /*         * ************************************ */
 
         $this->storeJobSkills($request, $job->id);
+        $this->storeJobCertifications($request, $job->id);
 
         /*         * ************************************ */
 

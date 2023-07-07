@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\CertificationType;
 use Request;
 use App\Language;
 use App\DegreeLevel;
@@ -457,7 +458,8 @@ class DataArrayHelper
 
     public static function defaultTestimonialsArray()
     {
-        $array = Testimonial::select('testimonials.testimonial_by', 'testimonials.testimonial_id')->isDefault()->active()->sorted()->pluck('testimonials.testimonial_by', 'testimonials.testimonial_id')->toArray();
+        $array = Testimonial::select('testimonials.testimonial_by', 'testimonials.testimonial_id')->isDefault()->active()->sorted()
+            ->pluck('testimonials.testimonial_by', 'testimonials.testimonial_id')->toArray();
         return $array;
     }
 
@@ -488,4 +490,11 @@ class DataArrayHelper
     }
 
     /*     * **************************** */
+
+
+    public static function defaultCertificationArray(){
+        $array = CertificationType::select('certification_types.certification_name', 'certification_types.id')->lang()->isDefault()->active()->sorted()
+                                    ->pluck('certification_types.certification_name', 'certification_types.id')->toArray();
+        return $array;
+    }
 }
