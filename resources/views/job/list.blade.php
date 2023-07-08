@@ -10,7 +10,7 @@
 
 <!-- Inner Page Title start --> 
 
-@include('includes.inner_page_title', ['page_title'=>__('Job Listing')]) 
+{{--@include('includes.inner_page_title', ['page_title'=>__('Job Listing')]) --}}
 
 
 

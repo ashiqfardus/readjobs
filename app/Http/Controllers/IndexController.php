@@ -14,6 +14,7 @@ use App\SiteSetting;
 use App\Slider;
 use App\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Redirect;
 use App\Traits\CompanyTrait;
 use App\Traits\FunctionalAreaTrait;
@@ -50,8 +51,6 @@ class IndexController extends Controller
      */
     public function index()
     {
-        
-       
         $topCompanyIds = $this->getCompanyIdsAndNumJobs(16);
         $topFunctionalAreaIds = $this->getFunctionalAreaIdsAndNumJobs(32);
         $topIndustryIds = $this->getIndustryIdsFromCompanies(32);
@@ -65,6 +64,13 @@ class IndexController extends Controller
         $functionalAreas = DataArrayHelper::langFunctionalAreasArray();
         $countries = DataArrayHelper::langCountriesArray();
 		$sliders = Slider::langSliders();
+
+        $jobSkills = DB::table('manage_job_skills')
+            ->select('manage_job_skills.job_skill_id', 'job_skills.job_skill')
+            ->selectRaw('COUNT(DISTINCT manage_job_skills.job_id) job_count')
+            ->leftJoin('job_skills', 'manage_job_skills.job_skill_id','=','job_skills.id')
+            ->groupBy('manage_job_skills.job_skill_id')
+            ->limit('32')->get();
 
         $seo = SEO::where('seo.page_title', 'like', 'front_index_page')->first();
         return view('welcome')
@@ -80,6 +86,7 @@ class IndexController extends Controller
 						->with('sliders', $sliders)
                         ->with('video', $video)
                         ->with('testimonials', $testimonials)
+                        ->with('jobskills', $jobSkills)
                         ->with('seo', $seo);
     }
 
