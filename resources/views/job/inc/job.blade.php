@@ -86,6 +86,17 @@
             {!! APFrmErrHelp::showErrors($errors, 'career_level_id') !!} </div>
     </div>
 
+    <div class="col-md-12">
+        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'certifications') !!}" id="certifications_div">
+            <?php
+            $certifications = old('certifications', $jobCertificationIds);
+            ?>
+            {!! Form::select('certifications[]', $jobCertifications, $certifications, array('class'=>'form-control select2-multiple-certification', 'id'=>'certifications', 'multiple'=>'multiple')) !!}
+            {!! APFrmErrHelp::showErrors($errors, 'certifications') !!}
+        </div>
+    </div>
+
+
     <div class="col-md-6">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'functional_area_id') !!}" id="functional_area_id_div"> {!! Form::select('functional_area_id', ['' => __('Select Functional Area')]+$functionalAreas, null, array('class'=>'form-control', 'id'=>'functional_area_id')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'functional_area_id') !!} </div>
@@ -162,6 +173,11 @@
             placeholder: "{{__('Select Required Skills')}}",
             allowClear: true
         });
+
+        $('.select2-multiple-certification').select2({
+            placeholder: "Select Required Certifications",
+            allowClear: true
+        });
         $(".datepicker").datepicker({
             autoclose: true,
             format: 'yyyy-m-d'
@@ -175,6 +191,25 @@
             filterLangCities(0);
         });
         filterLangStates(<?php echo old('state_id', (isset($job)) ? $job->state_id : 0); ?>);
+
+        $('#career_level_id').on('change', function (e) {
+            e.preventDefault();
+            var career_id = $(this).val();
+            if(career_id==24){
+                $('#certifications_div').show();
+            }
+            else{
+                $('#certifications_div').hide();
+            }
+        });
+
+        var career_id = $('#career_level_id').val();
+        if(career_id==24){
+            $('#certifications_div').show();
+        }
+        else{
+            $('#certifications_div').hide();
+        }
     });
     function filterLangStates(state_id)
     {

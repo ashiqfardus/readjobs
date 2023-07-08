@@ -523,6 +523,10 @@ trait JobTrait
 
         $salaryPeriods = DataArrayHelper::langSalaryPeriodsArray();
 
+        $jobCertifications = DataArrayHelper::defaultCertificationArray();
+
+        $jobCertificationIds = array();
+
 
 
         $jobSkillIds = array();
@@ -548,6 +552,10 @@ trait JobTrait
                         ->with('jobSkills', $jobSkills)
 
                         ->with('jobSkillIds', $jobSkillIds)
+
+                        ->with('jobCertifications', $jobCertifications)
+
+                        ->with('jobCertificationIds', $jobCertificationIds)
 
                         ->with('degreeLevels', $degreeLevels)
 
@@ -586,6 +594,8 @@ trait JobTrait
         /*         * ************************************ */
 
         $this->storeJobSkills($request, $job->id);
+
+        $this->storeJobCertifications($request, $job->id);
 
         /*         * ************************************ */
 
@@ -641,9 +651,12 @@ trait JobTrait
 
         $salaryPeriods = DataArrayHelper::langSalaryPeriodsArray();
 
+        $jobCertifications = DataArrayHelper::defaultCertificationArray();
+
 
 
         $job = Job::findOrFail($id);
+        $jobCertificationIds = $job->getJobCertificationsArray();
 
         $jobSkillIds = $job->getJobSkillsArray();
 
@@ -668,6 +681,10 @@ trait JobTrait
                         ->with('jobSkills', $jobSkills)
 
                         ->with('jobSkillIds', $jobSkillIds)
+
+                        ->with('jobCertifications', $jobCertifications)
+
+                        ->with('jobCertificationIds', $jobCertificationIds)
 
                         ->with('degreeLevels', $degreeLevels)
 
@@ -702,6 +719,7 @@ trait JobTrait
         /*         * ************************************ */
 
         $this->storeJobSkills($request, $job->id);
+        $this->storeJobCertifications($request, $job->id);
 
         /*         * ************************************ */
 
