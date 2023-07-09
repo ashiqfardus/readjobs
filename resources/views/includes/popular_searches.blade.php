@@ -122,16 +122,12 @@
 
                         <div class="srchint">
                             <ul class="row catelist">
-                                @if(isset($topIndustryIds) && count($topIndustryIds))
-                                    @foreach($topIndustryIds as $industry_id => $num_jobs)
-                                            <?php
-                                            $industry = App\Industry::where('industry_id', '=', $industry_id)->lang()->active()->first();
-                                            ?> @if(null !== $industry)
-                                            <li class="col-md-4 col-sm-6"><a
-                                                        href="{{route('job.list', ['industry_id[]'=>$industry->industry_id])}}"
-                                                        title="{{$industry->industry}}">{{$industry->industry}} <span>({{$num_jobs}})</span></a>
-                                            </li>
-                                        @endif
+                                @if(isset($jobCertificatations))
+                                    @foreach($jobCertificatations as $certification)
+                                        <li class="col-md-4 col-sm-6"><a
+                                                    href="{{route('job.list', ['certification_id[]'=>$certification->certification_id])}}"
+                                                    title="{{$certification->certification_name}}">{{$certification->certification_name}} <span>({{$certification->job_count}})</span></a>
+                                        </li>
                                     @endforeach
                                 @endif
                             </ul>

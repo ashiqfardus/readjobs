@@ -72,6 +72,13 @@ class IndexController extends Controller
             ->groupBy('manage_job_skills.job_skill_id')
             ->limit('32')->get();
 
+        $jobCertifications = DB::table('manage_job_certifications')
+            ->select('manage_job_certifications.certification_id', 'certification_types.certification_name')
+            ->selectRaw('COUNT(DISTINCT manage_job_certifications.job_id) job_count')
+            ->leftJoin('certification_types', 'manage_job_certifications.certification_id','=','certification_types.id')
+            ->groupBy('manage_job_certifications.certification_id')
+            ->limit('35')->get();
+
         $seo = SEO::where('seo.page_title', 'like', 'front_index_page')->first();
         return view('welcome')
                         ->with('topCompanyIds', $topCompanyIds)
@@ -87,6 +94,7 @@ class IndexController extends Controller
                         ->with('video', $video)
                         ->with('testimonials', $testimonials)
                         ->with('jobskills', $jobSkills)
+                        ->with('jobCertificatations', $jobCertifications)
                         ->with('seo', $seo);
     }
 
