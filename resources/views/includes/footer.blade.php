@@ -40,7 +40,7 @@
                 <!--Quick Links menu Start-->
                 <ul class="quicklinks">
                     @php
-                    $functionalAreas = App\FunctionalArea::getUsingFunctionalAreas(10);
+                    $functionalAreas = App\FunctionalArea::getUsingFunctionalAreas(6);
                     @endphp
                     @foreach($functionalAreas as $functionalArea)
                     <li><a href="{{ route('job.list', ['functional_area_id[]'=>$functionalArea->functional_area_id]) }}">{{$functionalArea->functional_area}}</a></li>
