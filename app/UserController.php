@@ -171,7 +171,7 @@ class UserController extends Controller
         $user->update();
 
         $this->updateUserFullTextSearch($user);
-        if ($request->career_level_id==24){
+        if ($request->career_level_id==23){
             $this->updateUserCertifications($certifications, Auth::user()->id);
         }
         else{

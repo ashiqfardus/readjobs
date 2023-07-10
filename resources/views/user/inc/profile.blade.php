@@ -1,3 +1,9 @@
+<style>
+    .select2-container--default .select2-search--inline .select2-search__field{
+        padding: 13px 12px;
+    }
+</style>
+
 {!! Form::model($user, array('method' => 'put', 'route' => array('my.profile.update'), 'class' => 'form', 'files'=>true, 'autocomplete'=>'off')) !!}
 
 <input type="hidden" id="user_id" value="{{auth()->user()->id}}">
@@ -211,6 +217,16 @@
             {!! Form::select('career_level_id', [''=>__('Select Career Level')]+$careerLevels, null, array('class'=>'form-control', 'id'=>'career_level_id')) !!}
             {!! APFrmErrHelp::showErrors($errors, 'career_level_id') !!} </div>
     </div>
+
+    <div class="col-md-12">
+        <div class="formrow {!! APFrmErrHelp::hasError($errors, 'certifications') !!}" id="certifications_div">
+            <?php
+            $certifications = old('certifications', $jobCertificationIds);
+            ?>
+            {!! Form::select('certifications[]', $jobCertifications, $certifications, array('class'=>'form-control select2-multiple-certification', 'id'=>'certifications', 'multiple'=>'multiple')) !!}
+            {!! APFrmErrHelp::showErrors($errors, 'certifications') !!}
+        </div>
+    </div>
     <div class="col-md-6">
         <div class="formrow {!! APFrmErrHelp::hasError($errors, 'industry_id') !!}">
             <label for="">{{__('Select Industry')}} <span style="color: red;">*</span></label>
@@ -282,6 +298,35 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function () {
+
+            //certification script
+            $('.select2-multiple-certification').select2({
+                placeholder: "Select Required Certifications",
+                allowClear: true
+            });
+
+            $('#career_level_id').on('change', function (e) {
+                e.preventDefault();
+                var career_id = $(this).val();
+                if(career_id==24){
+                    $('#certifications_div').show();
+                }
+                else{
+                    $('#certifications_div').hide();
+                }
+            });
+
+            var career_id = $('#career_level_id').val();
+            if(career_id==24){
+                $('#certifications_div').show();
+            }
+            else{
+                $('#certifications_div').hide();
+            }
+
+
+
+
             var user_id = $('#user_id').val();
             getCountryCode();
             getUserCurrency(user_id);

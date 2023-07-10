@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\ProfileCertification;
 use DB;
 use File;
 use ImgUploader;
@@ -150,6 +151,20 @@ trait CommonUserFunctions
                 return User::where('city_id', '=', $value)->active()->count('id');
             }
         }
+    }
+
+    public function updateUserCertifications($certifications, $user){
+        ProfileCertification::where('user_id','=', $user)->delete();
+        foreach ($certifications as $certification){
+            $userCertification = new ProfileCertification();
+            $userCertification->user_id = $user;
+            $userCertification->certification_id = $certification;
+            $userCertification->save();
+        }
+    }
+
+    public function deleteUserCertifications($user){
+        ProfileCertification::where('user_id','=', $user)->delete();
     }
 
 }
