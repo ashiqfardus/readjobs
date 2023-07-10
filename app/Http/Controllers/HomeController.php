@@ -31,7 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $matchingJobs = Job::where('functional_area_id', auth()->user()->industry_id)->paginate(7);
+        $matchingJobs = Job::where('functional_area_id', auth()->user()->functional_area_id)->paginate(7);
 		$followers = FavouriteCompany::where('user_id', auth()->user()->id)->get();
         $chart='';
         return view('home', compact('chart', 'matchingJobs', 'followers'));

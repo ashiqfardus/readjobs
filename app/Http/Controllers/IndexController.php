@@ -79,6 +79,9 @@ class IndexController extends Controller
             ->groupBy('manage_job_certifications.certification_id')
             ->limit('35')->get();
 
+        $jobSkillsforSearch = DataArrayHelper::defaultJobSkillsArray();
+        $jobCertificatations = DataArrayHelper::defaultCertificationArray();
+
         $seo = SEO::where('seo.page_title', 'like', 'front_index_page')->first();
         return view('welcome')
                         ->with('topCompanyIds', $topCompanyIds)
@@ -95,6 +98,8 @@ class IndexController extends Controller
                         ->with('testimonials', $testimonials)
                         ->with('jobskills', $jobSkills)
                         ->with('jobCertificatations', $jobCertifications)
+                        ->with('jobSkillsforSearch', $jobSkillsforSearch)
+                        ->with('jobCertificationsforSearch', $jobCertificatations)
                         ->with('seo', $seo);
     }
 

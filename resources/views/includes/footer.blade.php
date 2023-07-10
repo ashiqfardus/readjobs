@@ -50,15 +50,24 @@
 
             <!--Jobs By Industry-->
             <div class="col-md-3 col-sm-6">
-                <h5>{{__('Jobs By Industry')}}</h5>
+                <h5>{{__('Jobs By Skill')}}</h5>
                 <!--Industry menu Start-->
                 <ul class="quicklinks">
                     @php
-                    $industries = App\Industry::getUsingIndustries(10);
+                    $count=0;
                     @endphp
-                    @foreach($industries as $industry)
-                    <li><a href="{{ route('job.list', ['industry_id[]'=>$industry->industry_id]) }}">{{$industry->industry}}</a></li>
-                    @endforeach
+                    @if(isset($jobskills))
+                        @foreach($jobskills as $jobSkill)
+                            <li><a href="{{route('job.list', ['job_skill_id[]'=>$jobSkill->job_skill_id])}}">{{$jobSkill->job_skill}}</a>
+                            </li>
+                            @php
+                                $count +=1;
+                                if ($count ==6){
+                                    break;
+                                }
+                            @endphp
+                        @endforeach
+                    @endif
                 </ul>
                 <!--Industry menu End-->
                 <div class="clear"></div>
